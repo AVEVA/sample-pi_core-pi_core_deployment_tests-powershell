@@ -2,7 +2,7 @@
 
 ​																																	<sup>  **Version:** 1.0.4</sup>
 
-![OSIlogo.png](./images/OSIlogo.png)																								
+![OSIlogo.png](./src/images/OSIlogo.png)																								
 
 # PI System Deployment Tests
 
