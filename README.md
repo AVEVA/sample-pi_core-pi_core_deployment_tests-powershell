@@ -83,3 +83,8 @@ Copyright 2019-2020 OSIsoft, LLC.
 PI System Deployment Tests are licensed under the Apache 2 license. 
 
 Refer to the root directory for the License.md.
+
+---
+
+For the main PI System samples page on master [ReadMe](https://github.com/osisoft/OSI-Samples-PI-System)  
+For the main OSIsoft samples page on master [ReadMe](https://github.com/osisoft/OSI-Samples)
