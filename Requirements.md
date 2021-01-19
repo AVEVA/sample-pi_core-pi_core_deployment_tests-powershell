@@ -155,7 +155,7 @@ The *App.config* file is where you set values for your target PI System.
 1.  After unzipping the *PISystemDeploymentTests.zip* file, navigate to the  _PISystemDeploymentTests\source_ directory.
 2. Open the *App.config* file and then make changes as defined above to all the PI System components on your target PI System.
 
-   ![screen_AppConfig](./images/screen_AppConfig.png)
+   ![screen_AppConfig](./images/Screen_AppConfig.png)
 
     **Note:** Some values are required. At a minimum, you must fill in the values of PIDataArchive, AFServer, AF Database, and PIAnalysisService.
 
