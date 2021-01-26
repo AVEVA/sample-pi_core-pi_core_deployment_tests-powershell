@@ -45,7 +45,7 @@ Before running the script and tests, you *must* perform the following prerequisi
 
      b. Install PowerShell tools for the PI System on the test client machine. Both AF Client and PowerShell tools are included in the PI Server 2018 SP3 install kit.
 
-3. Download and extract the *PI-System-Deployment-Tests-master.zip* file to the test client machine.
+3. Download and extract the *sample-pi_core-pi_core_deployment_tests-powershell-master.zip* file to the test client machine.
 
 4. Edit the *App.config* file (located in the *\source* directory) to match your selections from step 1. This file specifies what target PI System components to test. 
 
@@ -83,3 +83,8 @@ Copyright 2019-2020 OSIsoft, LLC.
 PI System Deployment Tests are licensed under the Apache 2 license. 
 
 Refer to the root directory for the License.md.
+
+---
+
+For the main PI System samples page on master [ReadMe](https://github.com/osisoft/OSI-Samples-PI-System)  
+For the main OSIsoft samples page on master [ReadMe](https://github.com/osisoft/OSI-Samples)
