@@ -32,7 +32,7 @@
     <Rule Id="SA1024" Action="Error" />
     <Rule Id="SA1025" Action="Warning" />
     <Rule Id="SA1026" Action="Error" />
-    <Rule Id="SA1027" Action="Error" />
+    <Rule Id="SA1027" Action="None" />
     <Rule Id="SA1028" Action="None" />
     <Rule Id="SA1100" Action="Error" />
     <Rule Id="SA1101" Action="None" />
@@ -69,7 +69,7 @@
     <Rule Id="SA1134" Action="Error" />
     <Rule Id="SA1135" Action="Error" />
     <Rule Id="SA1136" Action="Error" />
-    <Rule Id="SA1137" Action="Error" />
+    <Rule Id="SA1137" Action="None" />
     <Rule Id="SA1139" Action="Error" />
     <Rule Id="SA1200" Action="None" />
     <Rule Id="SA1201" Action="Warning" />

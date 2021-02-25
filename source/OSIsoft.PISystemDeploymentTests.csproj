@@ -101,6 +101,17 @@
     <Reference Include="OSIsoft.PINotifications.WCF, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c2fd352b8728a375, processorArchitecture=MSIL">
       <HintPath>$(NotificationsWCFHintPath)</HintPath>
     </Reference>
+    <Reference Include="OSIsoft.PISDK, Version=1.4.0.0, Culture=neutral, PublicKeyToken=c3309f0734ba2805, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\Program Files\PIPC\pisdk\PublicAssemblies\OSIsoft.PISDK.dll</HintPath>
+    </Reference>
+    <Reference Include="OSIsoft.PISDKCommon, Version=1.4.0.0, Culture=neutral, PublicKeyToken=c3309f0734ba2805">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="OSIsoft.PITimeServer, Version=1.4.0.0, Culture=neutral, PublicKeyToken=c3309f0734ba2805">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -157,6 +168,8 @@
     <Compile Include="Common\OptionalTheoryAttribute.cs" />
     <Compile Include="Common\OptionalFactAttribute.cs" />
     <Compile Include="Common\GenericAttribute.cs" />
+    <Compile Include="EdgeDataStore\EdgeDataStoreFixture.cs" />
+    <Compile Include="EdgeDataStore\EdgeDataStoreTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ManualLogger\ManualLoggerIsLocalFactAttribute.cs" />
     <Compile Include="ManualLogger\ManualLoggerFixture.cs" />
@@ -171,8 +184,10 @@
     <Compile Include="Notifications\Annotation\AnnotationDescription.cs" />
     <Compile Include="Notifications\Annotation\Subscribers.cs" />
     <Compile Include="Notifications\NotificationsFactAttribute.cs" />
+    <Compile Include="PIDA\PICollectiveFactAttribute.cs" />
     <Compile Include="PIDA\PIDAConnectionsTests.cs" />
     <Compile Include="PIDA\PIDAEventTests.cs" />
+    <Compile Include="PIDA\PICollectiveTests.cs" />
     <Compile Include="PIDA\PIDAPointTests.cs" />
     <Compile Include="PIDA\PIDAExternalToolHelper.cs" />
     <Compile Include="Notifications\NotificationsFixture.cs" />
