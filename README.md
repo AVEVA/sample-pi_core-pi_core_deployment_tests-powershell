@@ -1,7 +1,3 @@
-
-
-​																																	<sup>  **Version:** 1.0.4</sup>
-
 ![OSIlogo.png](./images/OSIlogo.png)																								
 
 # PI System Deployment Tests
@@ -9,6 +5,8 @@
 ```
 Warning: PI System Deployment Tests should not be run on a production environment.
 ```
+
+**Version:** 1.0.4
 
 ## Overview
 
