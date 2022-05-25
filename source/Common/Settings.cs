@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -8,8 +9,10 @@ namespace OSIsoft.PISystemDeploymentTests
     /// <summary>
     /// This class provides access to the appSettings section in the app.config file.
     /// </summary>
-    internal static class Settings
+    public static class Settings
     {
+#pragma warning disable SA1600 // Elements should be documented
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static string PIDataArchive => GetValue("PIDataArchive", isRequired: true);
         public static string AFServer => GetValue("AFServer", isRequired: true);
         public static string AFDatabase => GetValue("AFDatabase", isRequired: true);
@@ -29,6 +32,8 @@ namespace OSIsoft.PISystemDeploymentTests
         public static bool PIDataLinkTests => GetBooleanValue(DataLinkAFTests.KeySetting);
         public static bool PISqlClientTests => GetBooleanValue(PISystemDeploymentTests.PISqlClientTests.KeySetting);
         public static bool SkipCertificateValidation => GetBooleanValue("SkipCertificateValidation");
+#pragma warning restore SA1600 // Elements should be documented
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
         /// <summary>
         /// Gets the string value from the AppSettings section of the App.config file.
@@ -41,11 +46,7 @@ namespace OSIsoft.PISystemDeploymentTests
         /// </exception>
         public static string GetValue(string settingName, bool isRequired = false)
         {
-            string settingValue = ConfigurationManager.AppSettings[settingName];
-
-            if (isRequired && string.IsNullOrWhiteSpace(settingValue))
-                throw new ArgumentNullException($"The setting '{settingName}' is missing in App.config.");
-            return settingValue;
+            return SettingsManager.Instance.GetValue(settingName, isRequired);
         }
 
         /// <summary>

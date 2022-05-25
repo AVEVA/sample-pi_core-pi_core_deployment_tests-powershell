@@ -13,6 +13,7 @@ namespace OSIsoft.PISystemDeploymentTests
         public AnalysisTestConfiguration(string name) => Name = name;
 
         #region Fields used for Creation or Verification
+#pragma warning disable CS1591 // Missing XML Comment
 #pragma warning disable SA1600 // Elements should be documented
         public string Name { get; set; }
         public string AnalysisCategoryName => "OSIsoftTests_AF_AnalysisTest_AnalysisCat1";
@@ -21,6 +22,7 @@ namespace OSIsoft.PISystemDeploymentTests
         public string AnalysisExtPropKey => "OSIsoftTests_AF_AnalysisTest_ExpPropKey";
         public string AnalysisExtPropValue => "OSIsoftTests_AF_AnalysisTest_ExpPropKey";
 #pragma warning restore SA1600 // Elements should be documented
+#pragma warning restore CS1591 // Missing XML Comment
         #endregion
     }
 }

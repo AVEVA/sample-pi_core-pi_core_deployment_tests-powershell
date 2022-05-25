@@ -134,6 +134,8 @@ namespace OSIsoft.PISystemDeploymentTests
         {
             // The first group of consecutive # will serve as the placeholder for digits.
             // If the maximum PI Point count is less than the specified Point count, an exception will be thrown.
+            if (pointNameFormat == null)
+                throw new InvalidOperationException($"The pointNameFormat cannot be null");
             string hashSymbol = Regex.Match(pointNameFormat, @"#+").Groups[0].Value;
             int maxpointCount = (int)Math.Pow(10, hashSymbol.Length);
             if (pointCount > maxpointCount)
@@ -348,7 +350,7 @@ namespace OSIsoft.PISystemDeploymentTests
         }
 
         /// <summary>
-        /// Placeholder class for applying CollectionDefinitionAttribute and all the ICollectionFixture<> interfaces.
+        /// Placeholder class for applying CollectionDefinitionAttribute and all the ICollectionFixture interfaces.
         /// </summary>
         /// <remarks>
         /// This class does not have any code and is never created.

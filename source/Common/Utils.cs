@@ -97,6 +97,7 @@ namespace OSIsoft.PISystemDeploymentTests
         /// Tries to ping the specified machine.
         /// </summary>
         /// <param name="machineName">Name or address of machine being pinged.</param>
+        /// <param name="service">Name of service on machine to ping.</param>
         /// <returns>Returns true if the ping request to the specified machine was successful.</returns>
         public static bool PingHost(string machineName, string service)
         {

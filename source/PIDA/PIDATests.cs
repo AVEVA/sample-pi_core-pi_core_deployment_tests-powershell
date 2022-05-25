@@ -169,9 +169,11 @@ namespace OSIsoft.PISystemDeploymentTests
         /// <summary>
         /// Retrieves PI events for multiple use cases from ClassData.
         /// </summary>
-        /// <param name="pointMask">Name of PI POint on which to run query.</param>
+        /// <param name="pointMask">Name of PI Point on which to run query.</param>
         /// <param name="startTime">Starting time for query.</param>
         /// <param name="endTime">Ending time for query.</param>
+        /// <param name="minValue">Minimum value in range of expected PI Point values.</param>
+        /// <param name="maxValue">Maximum value in range of expected PI Point values.</param>
         /// <remarks>
         /// This test requires read access to the target PI Data Archive.
         /// <para>Test Steps:</para>

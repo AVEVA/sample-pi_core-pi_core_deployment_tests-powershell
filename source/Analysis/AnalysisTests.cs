@@ -117,7 +117,7 @@ namespace OSIsoft.PISystemDeploymentTests
                     actualAnalysisRulePlugIn.Equals(testData.AnalysisRulePlugIn, StringComparison.OrdinalIgnoreCase),
                     $"Analysis Rule PlugIn for Analysis [{AnalysisName}] was [{actualAnalysisRulePlugIn}], expected [{testData.AnalysisRulePlugIn}].");
 
-                int actualAnalysisCategoryCount = analysisFound.Categories.Count();
+                int actualAnalysisCategoryCount = analysisFound.Categories.Count;
                 const int ExpectedAnalysisCategoryCount = 1;
                 Assert.True(
                     actualAnalysisCategoryCount == ExpectedAnalysisCategoryCount,
@@ -304,7 +304,7 @@ namespace OSIsoft.PISystemDeploymentTests
                     actAnalysisTemplateRulePlugIn.Equals(AnalysisTemplateRulePlugIn, StringComparison.OrdinalIgnoreCase),
                     $"Analysis Rule PlugIn for Analysis Template [{AnalysisTemplateName}] was [{actAnalysisTemplateRulePlugIn}], expected [{AnalysisTemplateRulePlugIn}].");
 
-                int actualAnalysisCategoryCount = findAnalysisTemplate.Categories.Count();
+                int actualAnalysisCategoryCount = findAnalysisTemplate.Categories.Count;
                 Assert.True(
                     actualAnalysisCategoryCount == 1,
                     $"Analysis Category Count for Analysis Template [{AnalysisTemplateName}] was {actualAnalysisCategoryCount}, expected 1.");
@@ -452,7 +452,7 @@ namespace OSIsoft.PISystemDeploymentTests
             var queryString = $@"Path:='\\\\{Fixture.PISystem.Name}\\{db.Name}\\*'";
             Output.WriteLine($"Query precreated analyses and confirm they exist with query string [{queryString}].");
             var results = service.QueryRuntimeInformation(queryString, "name id status statusDetail");
-            Assert.True(results.Count() > 0, $"Can't find any analyses in database {db.Name}.");
+            Assert.True(results.Any(), $"Can't find any analyses in database {db.Name}.");
 
             // PI Analysis Service may still hold inactive analyses from a database deleted previously.
             Output.WriteLine("Query precreated analyses and confirm there are none in an error state.");
@@ -928,7 +928,7 @@ namespace OSIsoft.PISystemDeploymentTests
                                         $"Analysis:='{analysis.Name}'"))
                 {
                     AssertEventually.True(
-                        () => efSearch.FindObjects().Count() == 0,
+                        () => !efSearch.FindObjects().Any(),
                         TimeSpan.FromSeconds(30),
                         TimeSpan.FromSeconds(1),
                         $"There are still active event frames for analysis [{analysis.Name}], but expect to not have any.");
@@ -948,7 +948,7 @@ namespace OSIsoft.PISystemDeploymentTests
                                     $"Analysis:='{analysis.Name}'"))
                 {
                     AssertEventually.True(
-                        () => efSearch.FindObjects().Count() > 0,
+                        () => efSearch.FindObjects().Any(),
                         TimeSpan.FromSeconds(30),
                         TimeSpan.FromSeconds(1),
                         $"Can't find opened event frame for Analysis [{analysis.Name}].");
@@ -979,7 +979,7 @@ namespace OSIsoft.PISystemDeploymentTests
                         () =>
                         {
                             var efs = efSearch.FindObjects();
-                            return efs.Count() > 0 && efs.ElementAt(0).EndTime.TruncateToWholeSeconds() == endTime;
+                            return efs.Any() && efs.ElementAt(0).EndTime.TruncateToWholeSeconds() == endTime;
                         },
                         TimeSpan.FromSeconds(30),
                         TimeSpan.FromSeconds(1),

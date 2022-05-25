@@ -25,6 +25,7 @@ namespace OSIsoft.PISystemDeploymentTests
     public sealed class AFFixture : IDisposable
     {
         #region Wind Farm Database Constants
+#pragma warning disable CS1591 // Missing XML Comment
 #pragma warning disable SA1600 // Elements should be documented
         public const int TotalTurbineCount = 40;
         public const int TotalWindFarmCount = 8;
@@ -48,6 +49,7 @@ namespace OSIsoft.PISystemDeploymentTests
         public const string AttributeCategoryNameSite = "Site";
         public const string AttributeCategoryNameStatus = "Status";
 #pragma warning restore SA1600 // Elements should be documented
+#pragma warning restore CS1591 // Missing XML Comment
         #endregion
 
         /// <summary>
@@ -515,6 +517,7 @@ namespace OSIsoft.PISystemDeploymentTests
             CheckValue(actualVal.Value, expectedVal.Value, $"Value is incorrect for [{actualVal.Attribute}].");
         }
 
+#pragma warning disable SA1600 // Elements should be documented
         internal static PISystem GetPISystemFromConfig()
         {
             PISystem pisys;
@@ -533,6 +536,7 @@ namespace OSIsoft.PISystemDeploymentTests
 
             return pisys;
         }
+#pragma warning restore SA1600 // Elements should be documented
 
         /// <summary>
         /// Checks to make sure the actual value matches the expected value.
@@ -574,7 +578,7 @@ namespace OSIsoft.PISystemDeploymentTests
         }
 
         /// <summary>
-        /// Placeholder class for applying CollectionDefinitionAttribute and all the ICollectionFixture<> interfaces.
+        /// Placeholder class for applying CollectionDefinitionAttribute and all the ICollectionFixture interfaces.
         /// </summary>
         /// <remarks>
         /// This class does not have any code and is never created.

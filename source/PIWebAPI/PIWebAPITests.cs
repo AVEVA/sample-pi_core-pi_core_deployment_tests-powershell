@@ -24,11 +24,13 @@ namespace OSIsoft.PISystemDeploymentTests
     [Collection("PIWebAPI collection")]
     public class PIWebAPITests : IClassFixture<PIWebAPIFixture>
     {
+#pragma warning disable SA1600 // Elements should be documented
         internal const string KeySetting = "PIWebAPI";
         internal const TypeCode KeySettingTypeCode = TypeCode.String;
+#pragma warning restore SA1600 // Elements should be documented
         private const string PIPointName = "OSIsoftTests.Region 0.Wind Farm 00.TUR00000.Random";
 
-        private string _channelMessage = null;
+        private string _channelMessage;
 
         /// <summary>
         /// Constructor for PIWebAPITests class.
@@ -337,7 +339,7 @@ namespace OSIsoft.PISystemDeploymentTests
             var piPointUrl = $"{Fixture.HomePageUrl}/dataservers/{(string)dataArchiveData["WebId"]}/points?nameFilter={PIPointName}";
             Output.WriteLine($"Get PI Point data for [{PIPointName}] through Web API using Url [{piPointUrl}].");
             var piPointData = JObject.Parse(Fixture.Client.DownloadString(piPointUrl));
-            Assert.True(piPointData["Items"].Count() > 0, $"Could not find test PI Point [{PIPointName}].");
+            Assert.True(piPointData["Items"].Any(), $"Could not find test PI Point [{PIPointName}].");
             var webId = piPointData["Items"][0]["WebId"].ToString();
 
             var streamUrl = $"{Fixture.HomePageUrl}/streams/{webId}";
@@ -354,7 +356,7 @@ namespace OSIsoft.PISystemDeploymentTests
             var waitTimeInSeconds = 60;
             var pollIntervalInSeconds = 5;
             AssertEventually.True(
-                () => JObject.Parse(Fixture.Client.DownloadString(updatesUrl))["Events"].ToObject<List<JObject>>().Count() > 0,
+                () => JObject.Parse(Fixture.Client.DownloadString(updatesUrl))["Events"].ToObject<List<JObject>>().Count > 0,
                 TimeSpan.FromSeconds(waitTimeInSeconds),
                 TimeSpan.FromSeconds(pollIntervalInSeconds),
                 "No new events received via stream updates.");
@@ -401,7 +403,7 @@ namespace OSIsoft.PISystemDeploymentTests
             var piPointUrl = $"{Fixture.HomePageUrl}/dataservers/{(string)dataArchiveData["WebId"]}/points?nameFilter={PIPointName}";
             Output.WriteLine($"Get PI Point data for [{PIPointName}] through Web API using Url [{piPointUrl}].");
             var piPointData = JObject.Parse(Fixture.Client.DownloadString(piPointUrl));
-            Assert.True(piPointData["Items"].Count() > 0, $"Could not find test PI Point [{PIPointName}].");
+            Assert.True(piPointData["Items"].Any(), $"Could not find test PI Point [{PIPointName}].");
             var webId = piPointData["Items"][0]["WebId"].ToString();
 
             Output.WriteLine($"Open channel to a stream for PI Point data for [{PIPointName}].");

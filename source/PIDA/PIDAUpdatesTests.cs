@@ -76,7 +76,7 @@ namespace OSIsoft.PISystemDeploymentTests
                     AssertEventually.True(() =>
                     {
                         eventsRetrieved = myDataPipe.GetUpdateEvents(eventCount);
-                        totalCount += eventsRetrieved.Count();
+                        totalCount += eventsRetrieved.Count;
                         return totalCount == eventCount;
                     },
                     TimeSpan.FromSeconds(60),

@@ -25,6 +25,8 @@ namespace OSIsoft.PISystemDeploymentTests
         public ManualLoggerFixture()
         {
             Client.Headers.Add(HttpRequestHeader.ContentType, "application/json; charset=utf-8");
+
+            ServicePointManager.ServerCertificateValidationCallback = null;
             if (Settings.SkipCertificateValidation)
                 ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => true;
 

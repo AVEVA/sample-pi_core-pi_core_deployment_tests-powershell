@@ -374,7 +374,7 @@ namespace OSIsoft.PISystemDeploymentTests
                 Output.WriteLine("Deleting PI Points that were created and verifying.");
                 PIFixture.DeletePIPoints($"{pointPrefix}*", Output);
                 returnedPoints = PIPoint.FindPIPoints(piServer, $"{pointPrefix}*");
-                Assert.True(returnedPoints.Count() == 0,
+                Assert.True(!returnedPoints.Any(),
                     $"Expected to find no PI Points with prefix [{pointPrefix}], but {returnedPoints.Count()} were found.");
             }
             finally

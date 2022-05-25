@@ -5,6 +5,7 @@ using System.ServiceModel.Description;
 
 namespace OSIsoft.PISystemDeploymentTests
 {
+#pragma warning disable SA1600 // Elements should be documented
     internal sealed class BasicWebServiceHost : IDisposable
     {
         private readonly object _serviceObject;
@@ -55,4 +56,5 @@ namespace OSIsoft.PISystemDeploymentTests
             Close();
         }
     }
+#pragma warning restore SA1600 // Elements should be documented
 }

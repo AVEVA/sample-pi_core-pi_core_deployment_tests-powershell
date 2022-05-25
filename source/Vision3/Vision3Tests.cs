@@ -10,9 +10,10 @@ namespace OSIsoft.PISystemDeploymentTests
     /// </summary>
     public class Vision3Tests : IClassFixture<Vision3Fixture>
     {
+#pragma warning disable SA1600 // Elements should be documented
         internal const string KeySetting = "PIVisionServer";
         internal const TypeCode KeySettingTypeCode = TypeCode.String;
-
+#pragma warning restore SA1600 // Elements should be documented
         /// <summary>
         /// Constructor for Vision3Tests class.
         /// </summary>

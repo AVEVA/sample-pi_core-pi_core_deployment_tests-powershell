@@ -97,8 +97,8 @@ namespace OSIsoft.PISystemDeploymentTests
         /// <remarks>
         /// Test Steps:
         /// <para>Create several Event Frames</para>
-        /// <para></para>Confirm that a search will return the expected Event Frames</para>
-        /// <para></para>Delete the Event Frames</para>
+        /// <para>Confirm that a search will return the expected Event Frames</para>
+        /// <para>Delete the Event Frames</para>
         /// </remarks>
         [Fact]
         public void EventFrameSearchTest()
