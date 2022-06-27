@@ -19,12 +19,14 @@ namespace OSIsoft.PISystemDeploymentTests
     /// </summary>
     public class ManualLoggerTests : IClassFixture<ManualLoggerFixture>
     {
+#pragma warning disable SA1600 // Elements should be documented
         internal const string KeySetting = "PIManualLogger";
         internal const string PortSetting = "PIManualLoggerPort";
         internal const string SQLSetting = "PIManualLoggerSQL";
         internal const string ImpersonationUserSetting = "PIManualLoggerWebImpersonationUser";
         internal const TypeCode KeySettingTypeCode = TypeCode.String;
         internal const string NoPreviousWebConfig = "Did not find a Web.config.previous file. This expected for new installations of PI Manual Logger.";
+#pragma warning restore SA1600 // Elements should be documented
         private const string ConnectionName = "PIMLDB";
 
         /// <summary>

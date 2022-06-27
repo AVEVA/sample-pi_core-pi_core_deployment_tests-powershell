@@ -14,6 +14,7 @@ namespace OSIsoft.PISystemDeploymentTests
         public ElementTemplateTestConfiguration(string name) => Name = name;
 
         #region Fields used for Creation or Verification
+#pragma warning disable CS1591 // Missing XML Comment
 #pragma warning disable SA1600 // Elements should be documented
         public string Name { get; set; }
         public string AttributeCategoryName => AFFixture.AttributeCategoryNameStatus;
@@ -23,6 +24,7 @@ namespace OSIsoft.PISystemDeploymentTests
         public string ExtPropValue => "OSIsoftTests_AF_ElementTemplatesTest_ExpPropKey";
         public string PortName => "OSIsoftTests_Port";
 #pragma warning restore SA1600 // Elements should be documented
+#pragma warning restore CS1591 // Missing XML Comment
         #endregion
     }
 
@@ -38,6 +40,7 @@ namespace OSIsoft.PISystemDeploymentTests
         public ElementTestConfiguration(string name) => Name = name;
 
         #region Fields used for Creation or Verification
+#pragma warning disable CS1591 // Missing XML Comment
 #pragma warning disable SA1600 // Elements should be documented
         public string Name { get; set; }
         public string ChildElementName => "OSIsoftTests_ChildElement";
@@ -55,6 +58,7 @@ namespace OSIsoft.PISystemDeploymentTests
         public string AnnotationValue => "OSIsoftTests Annotation #1";
         public string PortName => "OSIsoftTests_Port";
 #pragma warning restore SA1600 // Elements should be documented
+#pragma warning restore CS1591 // Missing XML Comment
         #endregion
     }
 
@@ -70,6 +74,7 @@ namespace OSIsoft.PISystemDeploymentTests
         public TransferTestConfiguration(string name) => Name = name;
 
         #region Fields used for Creation or Verification
+#pragma warning disable CS1591 // Missing XML Comment
 #pragma warning disable SA1600 // Elements should be documented
         public string Name { get; set; }
         public string ElementCategoryName => AFFixture.ElemementCategoryNameEquipment;
@@ -84,6 +89,7 @@ namespace OSIsoft.PISystemDeploymentTests
         public string AnnotationValue => "OSIsoftTests Annotation #1";
         public string PortName => "OSIsoftTests_Port";
 #pragma warning restore SA1600 // Elements should be documented
+#pragma warning restore CS1591 // Missing XML Comment
         #endregion
     }
 }

@@ -25,6 +25,7 @@ namespace OSIsoft.PISystemDeploymentTests
         /// Get the PIHOME environment variable value.
         /// </summary>
         /// <param name="dirstring">The string reference the value will be stored in.</param>
+        /// <param name="flag">Flag to indicate whether to use 64-bit Office (value of 1) or 32-bit Office (value = 0)</param>
         public static void GetPIHOME(ref string dirstring, int flag = -1)
         {
             // For 32-bit Office, get the PIHOME path from the pipc.ini file.

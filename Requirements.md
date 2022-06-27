@@ -44,7 +44,7 @@ If you want the test associated with an optional PI System component to run, ind
 | ----------------------- | ------------------------------------------------------- | ------------------------------------------------------------ | ----------------------------------- |
 | PI Notification Service | PI Notification Service 2018 SP2                        | "**PINotificationsService**" key: Name of the machine where Notifications Service is installed. | NotificationTests                   |
 | PI Web API              | PI Web API 2019                                         | "**PIWebAPI**" key: Name of the target PI web API Server.<br />"**PIWebAPICrawler**" key: Name of the target PI Web API Crawler machine if different from PI Web API server.<br />"**PIWebAPIUser**" and "**PIWebAPIPassword**" keys: Username and password if using basic authentication.<br /> "**PIWebAPIConfigurationInstance**" key: Name of PI Web API configuration instance in AF server if different from machine name.<br /> "**SkipCertificateValidation**" key: Enter "**True**" to allow clients to bypass certificate validation for testing. | PIWebAPITests                       |
-| PI Vision               | PI Vision 2019                                          | "**PIVisionServer**" key: URL of target PI Vision Server.<br />"**SkipCertificateValidation**" key: Enter "**True**" to allow clients to bypass certificate validation for testing. | Vision3Tests                        |
+| PI Vision               | PI Vision 2019                                          | "**PIVisionServer**" key: URL of target PI Vision Server. | Vision3Tests                        |
 | PI Manual Logger        | PI Manual Logger PC 2014 & PI Manual Logger Web 2017 R2 | "**PIManualLogger**" key: Name of target PI Manual Logger's Server.<br /> "**SkipCertificateValidation**" key: Enter "**True**" to allow clients to bypass certificate validation for testing.<br />"**PIManualLoggerSQL**" key: Name of target PI Manual Logger's SQL Server.<br />"**PIManualLoggerWebImpersonationUser**" key: Name of PI Manual Logger Web <span>ASP.Net</span> Impersonation User. | ManualLoggerTests                   |
 | PI Data Link            | PI Data Link 2019 SP1                                   | "**PIDataLinkTests**" key: Enter "**True**" to run tests; enter "**False**" to not run tests. PI Data Link is required to be installed on the test client machine. | DataLinkAFTests,  DataLinkPIDATests |
 | PI SQL Client           | PI SQL Client 2018 R2                                   | "**PIsqlClientTests**" key: Enter "**True**" to run tests; enter "**False**" to not run tests. PI SQL Client is expected to be installed on the test client machine. | PIsqlClientTests                    |
@@ -152,7 +152,7 @@ The *App.config* file is where you set values for your target PI System.
 
 **Warning:** Do not edit any of the "**key**" names in the *App.config* file. Only make changes to the "**value**" entries.
 
-1.  After unzipping the *PISystemDeploymentTests.zip* file, navigate to the  _PISystemDeploymentTests\source_ directory.
+1.  After unzipping the *sample-pi_core-pi_core_deployment_tests-powershell-master.zip* file, navigate to the  _sample-pi_core-pi_core_deployment_tests-powershell-master\source_ directory.
 2. Open the *App.config* file and then make changes as defined above to all the PI System components on your target PI System.
 
    ![screen_AppConfig](./images/Screen_AppConfig.png)
@@ -160,6 +160,10 @@ The *App.config* file is where you set values for your target PI System.
     **Note:** Some values are required. At a minimum, you must fill in the values of PIDataArchive, AFServer, AF Database, and PIAnalysisService.
 
 3.  Save your changes.
+
+
+## Compiling solution with Microsoft Visual Studio 
+For those who may be viewing the C# solution in Microsoft Visual Studio, version 2019 (or greater) is required to successfully compile.
 
 Return to the main [PI System Deployment Tests landing page](../../)
 

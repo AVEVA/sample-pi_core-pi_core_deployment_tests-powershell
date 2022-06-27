@@ -200,7 +200,6 @@ namespace OSIsoft.PISystemDeploymentTests
         /// <summary>
         /// Post a vision display folder to the server for deletion.
         /// </summary>
-        /// <param name="displayName">Name of the display to delete.</param>
         /// <returns>Task representing the asynchronous operation.</returns>
         public async System.Threading.Tasks.Task<HttpResponseMessage> PostDeleteDisplayFolder()
         {

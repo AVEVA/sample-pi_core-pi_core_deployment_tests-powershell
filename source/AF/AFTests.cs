@@ -22,9 +22,10 @@ namespace OSIsoft.PISystemDeploymentTests
     [Collection("AF collection")]
     public class AFTests : IClassFixture<AFFixture>
     {
+#pragma warning disable SA1600 // Elements should be documented
         internal const string KeySetting = "AFServer";
         internal const TypeCode KeySettingTypeCode = TypeCode.String;
-
+#pragma warning restore SA1600 // Elements should be documented
         /// <summary>
         /// Constructor for AFTests Class.
         /// </summary>
@@ -613,7 +614,7 @@ namespace OSIsoft.PISystemDeploymentTests
 
                 // Verify found proper Table Object
                 Output.WriteLine("Confirm Table properties are correct.");
-                int actualTableCategoryCount = foundTable.Categories.Count();
+                int actualTableCategoryCount = foundTable.Categories.Count;
                 const int ExpectedTableCategoryCount = 1;
                 Assert.True(actualTableCategoryCount == ExpectedTableCategoryCount,
                     $"Table [{TableName}] had Category count {actualTableCategoryCount}, expected {ExpectedTableCategoryCount}.");
@@ -800,8 +801,6 @@ namespace OSIsoft.PISystemDeploymentTests
         /// <para>Perform the CheckIn or UndoCheckOut operation</para>
         /// <para>Ensure the GetCheckOutInfo RPC was not called</para>
         /// </remarks>
-        /// <param name="database">Indicates performing a database or system operation</param>
-        /// <param name="undoCheckOut">Indicates performing a CheckIn or UndoCheckOut</param>
         [GenericFact(TestCondition.AFPATCH2109, false)]
         public void GetCheckoutInfoTest()
         {

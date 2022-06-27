@@ -13,6 +13,7 @@ namespace OSIsoft.PISystemDeploymentTests
         public EventFrameTestConfiguration(string name) => Name = name;
 
         #region Fields used for Creation or Verification
+#pragma warning disable CS1591 // Missing XML Comment
 #pragma warning disable SA1600 // Elements should be documented
         public string Name { get; set; }
         public string AttributeCategoryName => AFFixture.AttributeCategoryNameStatus;
@@ -30,6 +31,7 @@ namespace OSIsoft.PISystemDeploymentTests
         public string AnnotationValue => "OSIsoftTests Annotation #1";
         public string ChildEventFrame => "OSIsoftTests_ChildEventFrame";
 #pragma warning restore SA1600 // Elements should be documented
+#pragma warning restore CS1591 // Missing XML Comment
         #endregion
     }
 }

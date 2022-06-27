@@ -2,6 +2,7 @@
 
 namespace OSIsoft.PISystemDeploymentTests
 {
+#pragma warning disable SA1600 // Elements should be documented
     internal class ContentEvaluationInfo
     {
         public Guid Id { get; set; }
@@ -10,4 +11,5 @@ namespace OSIsoft.PISystemDeploymentTests
 
         public int PropertyId { get; set; }
     }
+#pragma warning restore SA1600 // Elements should be documented
 }

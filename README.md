@@ -1,13 +1,13 @@
 
 
-​																																	<sup>  **Version:** 1.0.4</sup>
+​																																	<sup>  **Version:** 1.0.5</sup>
 
 ![OSIlogo.png](./images/OSIlogo.png)																								
 
 # PI System Deployment Tests
 
 ```
-Warning: PI System Deployment Tests should not be run on a production environment.
+Warning: PI System Deployment Tests should not be run on a production environment. Please read all documentation to ensure proper and secure use of these tests.
 ```
 
 ## Overview
@@ -51,7 +51,9 @@ Before running the script and tests, you *must* perform the following prerequisi
 
    **Note:** After completing these steps, you are ready to execute the *Run.ps1* script to run the tests. See [Run the scripts and tests](./scripts/README.md) for instructions.
 
+### Important Note
 
+A segmented environment for PI System Deployment Tests is recommended in the event of potentially errant test code or malicious download (however unlikely) which could damage the test environment.
 
 ## Overview of the Run.ps1 script
 
@@ -78,7 +80,7 @@ If your support question or issue is related to a non-modified sample (or test) 
 
 ### License
 
-Copyright 2019-2020 OSIsoft, LLC.
+Copyright 2019-2022 OSIsoft, LLC.
 
 PI System Deployment Tests are licensed under the Apache 2 license. 
 

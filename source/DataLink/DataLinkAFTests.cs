@@ -13,9 +13,10 @@ namespace OSIsoft.PISystemDeploymentTests
     [Collection("AF collection")]
     public class DataLinkAFTests : IClassFixture<AFFixture>
     {
+#pragma warning disable SA1600 // Elements should be documented
         internal const string KeySetting = "PIDataLinkTests";
         internal const TypeCode KeySettingTypeCode = TypeCode.Boolean;
-
+#pragma warning restore SA1600 // Elements should be documented
         private const string AFDataPath = DataLinkUtils.AFDataDLLPath;
         private const string AFDataAssemblyName = DataLinkUtils.AFLibraryType;
         private readonly dynamic _afLib;

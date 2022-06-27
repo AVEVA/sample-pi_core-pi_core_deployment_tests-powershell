@@ -1,26 +1,26 @@
-﻿#License Information:
-
-This product is developed and copyrighted by OSIsoft, LLC. All rights reserved.
+﻿## This product is developed and copyrighted by OSIsoft, LLC. All rights reserved.
 
 Several of the components referenced by this distribution are attributable to other authors, and licensed under the following terms:
 
+Copyright 2022
 
-Copyright 2020
-
-[PI System Deployment Tests : PISystemDeploymentTestsV1.0.4]
+[PI System Deployment Tests : PISystemDeploymentTestsV1.0.5_Additional]
 
 Distribution: EXTERNAL
 
+Components: 
 
-# Components: 
-
-Json.NET 12.0.2 : MIT License
-Microsoft.CodeAnalysis.FxCopAnalyzers 2.9.3 : Apache License 2.0
-	Copyright (c) .NET Foundation and Contributors
+JamesNK/Newtonsoft.Json 13.0.1 : MIT License
+Microsoft.CodeAnalysis.NetAnalyzers 5.0.3 : Apache License 2.0
+Microsoft.Extensions.DependencyModel : MIT License
 StyleCop.Analyzers 1.1.118 : Apache License 2.0
 	Copyright 2015 Tunnel Vision Laboratories, LLC
-System.Security.Principal.Windows 4.4.0 : MIT License
+xunit-cli 0.1.6 : Apache License 2.0
+xunit.analyzers 0.10.0 : Apache License 2.0
+	Copyright (c) .NET Foundation and Contributors
+	All Rights Reserved
 xUnit.net 2.4.1 : (MIT License AND Apache License 2.0)
+xUnit.net [Abstractions] 2.0.0 : Apache License 2.0
 xUnit.net [Abstractions] 2.0.3 : Apache License 2.0
 	Copyright (c) .NET Foundation and Contributors
 	    All Rights Reserved
@@ -29,22 +29,17 @@ xUnit.net [Core Library] 2.4.1 : (MIT License AND Apache License 2.0)
 xUnit.net [Extensibility: Core] 2.4.1 : (MIT License AND Apache License 2.0)
 xUnit.net [Extensibility: Execution] 2.4.1 : (MIT License AND Apache License 2.0)
 xUnit.net [Runner: Console] 2.4.1 : (MIT License AND Apache License 2.0)
-xUnit.net [Visual Studio/TFS Build Runner] 2.4.2 : MIT License
-xunit-cli 0.1.8 : Apache License 2.0
-	Copyright © Nate McMaster
-xunit.analyzers 0.10.0 : Apache License 2.0
-	Copyright (c) .NET Foundation and Contributors
-	All Rights Reserved
+xUnit.net [Visual Studio/TFS Build Runner] 2.4.1 : (MIT License AND Apache License 2.0)
+xUnit.net [Visual Studio/TFS Build Runner] 2.4.3 : MIT License
 
-# Licenses: 
-
+Licenses: 
 
 Apache License 2.0
-(Microsoft.CodeAnalysis.FxCopAnalyzers 2.9.3, StyleCop.Analyzers 1.1.118, xUnit.net 2.4.1, xUnit.net [Abstractions] 2.0.3, xUnit.net [Assertion Library] 2.4.1, xUnit.net [Core Library] 2.4.1, xUnit.net [Extensibility: Core] 2.4.1, xUnit.net [Extensibility: Execution] 2.4.1, xUnit.net [Runner: Console] 2.4.1, xunit-cli 0.1.8, xunit.analyzers 0.10.0)
+(Microsoft.CodeAnalysis.NetAnalyzers 5.0.3, StyleCop.Analyzers 1.1.118, xunit-cli 0.1.6, xunit.analyzers 0.10.0, xUnit.net 2.4.1, xUnit.net [Abstractions] 2.0.0, xUnit.net [Abstractions] 2.0.3, xUnit.net [Assertion Library] 2.4.1, xUnit.net [Core Library] 2.4.1, xUnit.net [Extensibility: Core] 2.4.1, xUnit.net [Extensibility: Execution] 2.4.1, xUnit.net [Runner: Console] 2.4.1, xUnit.net [Visual Studio/TFS Build Runner] 2.4.1)
 
-
-## Apache License, Version 2.0, January 2004
-====================================================================================
+Apache License
+Version 2.0, January 2004
+=========================
 
 
 http://www.apache.org/licenses/
@@ -53,42 +48,42 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
 1. Definitions.
 
-    "License" shall mean the terms and conditions for use, reproduction, and
-    distribution as defined by Sections 1 through 9 of this document.
+"License" shall mean the terms and conditions for use, reproduction, and
+distribution as defined by Sections 1 through 9 of this document.
 
-    "Licensor" shall mean the copyright owner or entity authorized by the copyright
+"Licensor" shall mean the copyright owner or entity authorized by the copyright
 owner that is granting the License.
 
-    "Legal Entity" shall mean the union of the acting entity and all other entities
+"Legal Entity" shall mean the union of the acting entity and all other entities
 that control, are controlled by, or are under common control with that entity.
 For the purposes of this definition, "control" means (i) the power, direct or
 indirect, to cause the direction or management of such entity, whether by
 contract or otherwise, or (ii) ownership of fifty percent (50%) or more of the
 outstanding shares, or (iii) beneficial ownership of such entity.
 
-    "You" (or "Your") shall mean an individual or Legal Entity exercising permissions
+"You" (or "Your") shall mean an individual or Legal Entity exercising permissions
 granted by this License.
 
-    "Source" form shall mean the preferred form for making modifications, including
+"Source" form shall mean the preferred form for making modifications, including
 but not limited to software source code, documentation source, and configuration
 files.
 
-    "Object" form shall mean any form resulting from mechanical transformation or
+"Object" form shall mean any form resulting from mechanical transformation or
 translation of a Source form, including but not limited to compiled object code,
 generated documentation, and conversions to other media types.
 
-    "Work" shall mean the work of authorship, whether in Source or Object form, made
+"Work" shall mean the work of authorship, whether in Source or Object form, made
 available under the License, as indicated by a copyright notice that is included
 in or attached to the work (an example is provided in the Appendix below).
 
-    "Derivative Works" shall mean any work, whether in Source or Object form, that is
+"Derivative Works" shall mean any work, whether in Source or Object form, that is
 based on (or derived from) the Work and for which the editorial revisions,
 annotations, elaborations, or other modifications represent, as a whole, an
 original work of authorship. For the purposes of this License, Derivative Works
 shall not include works that remain separable from, or merely link (or bind by
 name) to the interfaces of, the Work and Derivative Works thereof.
 
-    "Contribution" shall mean any work of authorship, including the original version
+"Contribution" shall mean any work of authorship, including the original version
 of the Work and any modifications or additions to that Work or Derivative Works
 thereof, that is intentionally submitted to Licensor for inclusion in the Work by
 the copyright owner or by an individual or Legal Entity authorized to submit on
@@ -101,7 +96,7 @@ and improving the Work, but excluding communication that is conspicuously marked
 or otherwise designated in writing by the copyright owner as "Not a
 Contribution."
 
-    "Contributor" shall mean Licensor and any individual or Legal Entity on behalf of
+"Contributor" shall mean Licensor and any individual or Legal Entity on behalf of
 whom a Contribution has been received by Licensor and subsequently incorporated
 within the Work.
 
@@ -130,18 +125,18 @@ litigation is filed.
 Derivative Works thereof in any medium, with or without modifications, and in
 Source or Object form, provided that You meet the following conditions:
 
-    a. You must give any other recipients of the Work or Derivative Works a copy of
+  a. You must give any other recipients of the Work or Derivative Works a copy of
     this License; and
 
-    b. You must cause any modified files to carry prominent notices stating that
+  b. You must cause any modified files to carry prominent notices stating that
     You changed the files; and
 
-    c. You must retain, in the Source form of any Derivative Works that You
+  c. You must retain, in the Source form of any Derivative Works that You
     distribute, all copyright, patent, trademark, and attribution notices from
     the Source form of the Work, excluding those notices that do not pertain to
     any part of the Derivative Works; and
 
-    d. If the Work includes a "NOTICE" text file as part of its distribution, then
+  d. If the Work includes a "NOTICE" text file as part of its distribution, then
     any Derivative Works that You distribute must include a readable copy of the
     attribution notices contained within such NOTICE file, excluding those
     notices that do not pertain to any part of the Derivative Works, in at least
@@ -155,7 +150,7 @@ Source or Object form, provided that You meet the following conditions:
     NOTICE text from the Work, provided that such additional attribution notices
     cannot be construed as modifying the License.
 
-    You may add Your own copyright statement to Your modifications and may provide
+You may add Your own copyright statement to Your modifications and may provide
 additional or different license terms and conditions for use, reproduction, or
 distribution of Your modifications, or for any such Derivative Works as a whole,
 provided Your use, reproduction, and distribution of the Work otherwise complies
@@ -203,10 +198,9 @@ Contributor harmless for any liability incurred by, or claims asserted against,
 such Contributor by reason of your accepting any such warranty or additional
 liability.
 
-### END OF TERMS AND CONDITIONS
+END OF TERMS AND CONDITIONS
 
-
-**APPENDIX:** How to apply the Apache License to your work
+APPENDIX: How to apply the Apache License to your work
 
 To apply the Apache License to your work, attach the following boilerplate
 notice, with the fields enclosed by brackets "[]" replaced with your own
@@ -275,44 +269,69 @@ The file src/common/Annotations.cs is covered by the following license
 ---
 
 MIT License
-(System.Security.Principal.Windows 4.4.0)
+(Microsoft.Extensions.DependencyModel, xUnit.net [Visual Studio/TFS Build Runner] 2.4.1)
 
-The MIT License (MIT)
+The MIT License
+===============
 
+Copyright (c) 2015 .NET Foundation
 
-
-Copyright (c) .NET Foundation and Contributors
-
-
-
-All rights reserved.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in the
+Software without restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
 MIT License
-(Json.NET 12.0.2)
+(xUnit.net [Visual Studio/TFS Build Runner] 2.4.3)
 
 The MIT License (MIT)
 
 
+
+    Copyright (c) 2015 .NET Foundation
+
+
+
+   
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE
+
+---
+
+MIT License
+(JamesNK/Newtonsoft.Json 13.0.1)
+
+The MIT License (MIT)
 
 Copyright (c) 2007 James Newton-King
 
@@ -390,7 +409,7 @@ Both sets of code are covered by the following license:
 ---
 
 MIT License
-(xUnit.net [Extensibility: Core] 2.4.1, xUnit.net [Visual Studio/TFS Build Runner] 2.4.2)
+(xUnit.net [Extensibility: Core] 2.4.1)
 
 Unless otherwise noted, the source code here is covered by the following license:
 

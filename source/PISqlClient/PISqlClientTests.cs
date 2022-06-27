@@ -14,9 +14,10 @@ namespace OSIsoft.PISystemDeploymentTests
     [Collection("AF collection")]
     public class PISqlClientTests : IClassFixture<AFFixture>
     {
+#pragma warning disable SA1600 // Elements should be documented
         internal const string KeySetting = "PISqlClientTests";
         internal const TypeCode KeySettingTypeCode = TypeCode.Boolean;
-
+#pragma warning restore SA1600 // Elements should be documented
         private readonly string _provider = "PISQLClient.1";
         private readonly string _integratedSecurity = "SSPI";
         private readonly string _connectionString;

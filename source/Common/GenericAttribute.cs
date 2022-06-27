@@ -104,8 +104,8 @@ namespace OSIsoft.PISystemDeploymentTests
         private static Version _notificationsCurrentVersion = new Version("2.10.9.593");
         private static string _notificationsCurrentVersionString = "PI Notifications Service 2018 SP3 Patch 3";
 
-        private static Version _dataArchiveCurrentVersion = new Version("3.4.440.477");
-        private static string _dataArchiveCurrentVersionString = "PI Data Archive 2018 SP3 Patch 2";
+        private static Version _dataArchiveCurrentVersion = new Version("3.4.445.688");
+        private static string _dataArchiveCurrentVersionString = "PI Data Archive 2018 SP3 Patch 3";
 
         private static Version _dataLinkCurrentVersion = new Version("5.5.2.0");
         private static string _dataLinkCurrentVersionString = "PI DataLink 2019 SP1 Patch 1";
@@ -119,11 +119,11 @@ namespace OSIsoft.PISystemDeploymentTests
         private static Version _sqlClientODBCCurrentVersion = new Version("4.1.19190.2");
         private static string _sqlClientODBCCurrentVersionString = "PI SQL Client 2018 R2";
 
-        private static Version _webAPICurrentVersion = new Version("1.13.0.6518");
-        private static string _webAPICurrentVersionString = "PI Web API 2019 SP1";
+        private static Version _webAPICurrentVersion = new Version("1.16.0.254");
+        private static string _webAPICurrentVersionString = "PI Web API 2021 SP2";
 
-        private static Version _visionCurrentVersion = new Version("3.5.0.0");
-        private static string _visionCurrentVersionString = "PI Vision 2020";
+        private static Version _visionCurrentVersion = new Version("3.5.1.0");
+        private static string _visionCurrentVersionString = "PI Vision 2020 Patch 1";
 
         private static Version _manualLoggerWebCurrentVersion = new Version("3.4.2.535");
         private static string _manualLoggerWebCurrentVersionString = "PI Manual Logger Web R2 Patch 2";
@@ -147,7 +147,7 @@ namespace OSIsoft.PISystemDeploymentTests
             switch (feature)
             {
                 case TestCondition.AFCLIENTCURRENTPATCH:
-                    Version sdkVersion = new Version(afVersion);
+                    var sdkVersion = new Version(afVersion);
                     if (sdkVersion < _afClientCurrentVersion)
                     {
                         skip = $@"Warning! You do not have the latest update: {_afClientCurrentVersionString}! Please consider upgrading! You are currently on {sdkVersion}";
@@ -171,7 +171,7 @@ namespace OSIsoft.PISystemDeploymentTests
 
                     break;
                 case TestCondition.AFSERVERCURRENTPATCH:
-                    Version serverVersion = new Version(AFFixture.GetPISystemFromConfig().ServerVersion);
+                    var serverVersion = new Version(AFFixture.GetPISystemFromConfig().ServerVersion);
                     if (serverVersion < _afServerCurrentVersion)
                     {
                         skip = $@"Warning! You do not have the latest update: {_afServerCurrentVersionString}! Please consider upgrading! You are currently on {serverVersion}";
@@ -179,7 +179,7 @@ namespace OSIsoft.PISystemDeploymentTests
 
                     break;
                 case TestCondition.ANALYSISCURRENTPATCH:
-                    Version analysisVer = new Version(AFFixture.GetPISystemFromConfig().AnalysisRulePlugIns["PerformanceEquation"].Version);
+                    var analysisVer = new Version(AFFixture.GetPISystemFromConfig().AnalysisRulePlugIns["PerformanceEquation"].Version);
                     if (analysisVer < _analysisCurrentVersion)
                     {
                         skip = $@"Warning! You do not have the latest update: {_analysisCurrentVersionString}! Please consider upgrading! You are currently on {analysisVer}";
@@ -190,7 +190,7 @@ namespace OSIsoft.PISystemDeploymentTests
                     string afDataDLLPath = @"Excel\OSIsoft.PIDataLink.AFData.dll";
 
                     DataLinkUtils.GetPIHOME(ref piHomeDir);
-                    Version dataLinkVersion = new Version(FileVersionInfo.GetVersionInfo(Path.Combine(piHomeDir, afDataDLLPath)).FileVersion);
+                    var dataLinkVersion = new Version(FileVersionInfo.GetVersionInfo(Path.Combine(piHomeDir, afDataDLLPath)).FileVersion);
                     if (dataLinkVersion < _dataLinkCurrentVersion)
                     {
                         skip = $@"Warning! You do not have the latest update: {_dataLinkCurrentVersionString}! Please consider upgrading! You are currently on {dataLinkVersion}";
@@ -200,10 +200,10 @@ namespace OSIsoft.PISystemDeploymentTests
                 case TestCondition.NOTIFICATIONSCURRENTPATCH:
                     PISystem system = AFFixture.GetPISystemFromConfig();
                     var configstore = new PINotificationsConfigurationStore(system);
-                    PINotificationsWCFClientManager wcfClient = new PINotificationsWCFClientManager(configstore);
+                    var wcfClient = new PINotificationsWCFClientManager(configstore);
                     var serviceStatus = wcfClient.GetServiceStatus();
                     wcfClient.Dispose();
-                    Version notificationsVersion = new Version(serviceStatus.Version);
+                    var notificationsVersion = new Version(serviceStatus.Version);
                     if (notificationsVersion < _notificationsCurrentVersion)
                     {
                         skip = $@"Warning! You do not have the latest update: {_notificationsCurrentVersionString}! Please consider upgrading! You are currently on {notificationsVersion}";
@@ -213,7 +213,7 @@ namespace OSIsoft.PISystemDeploymentTests
                 case TestCondition.PIDACURRENTPATCH:
                     PIServer serv = new PIServers()[Settings.PIDataArchive];
                     serv.Connect();
-                    Version pidaVersion = new Version(serv.ServerVersion);
+                    var pidaVersion = new Version(serv.ServerVersion);
                     if (pidaVersion < _dataArchiveCurrentVersion)
                     {
                         skip = $@"Warning! You do not have the latest update: {_dataArchiveCurrentVersionString}! Please consider upgrading! You are currently on {pidaVersion}";
@@ -225,7 +225,7 @@ namespace OSIsoft.PISystemDeploymentTests
                     string sqlpath32OLEDB = Path.Combine(piHome32, @"SQL\SQL Client\OLEDB\PISQLOLEDB.dll");
                     if (File.Exists(sqlpath64OLEDB))
                     {
-                        Version piSqlVersion = new Version(FileVersionInfo.GetVersionInfo(sqlpath64OLEDB).FileVersion);
+                        var piSqlVersion = new Version(FileVersionInfo.GetVersionInfo(sqlpath64OLEDB).FileVersion);
                         if (piSqlVersion < _sqlClientOLEDBCurrentVersion)
                         {
                             skip = $@"Warning! You do not have the latest update: {_sqlClientOLEDBCurrentVersionString}! Please consider upgrading! You are currently on {piSqlVersion}";
@@ -234,7 +234,7 @@ namespace OSIsoft.PISystemDeploymentTests
 
                     if (File.Exists(sqlpath32OLEDB))
                     {
-                        Version piSqlVersion = new Version(FileVersionInfo.GetVersionInfo(sqlpath32OLEDB).FileVersion);
+                        var piSqlVersion = new Version(FileVersionInfo.GetVersionInfo(sqlpath32OLEDB).FileVersion);
                         if (piSqlVersion < _sqlClientOLEDBCurrentVersion)
                         {
                             skip = $@"Warning! You do not have the latest update: {_sqlClientOLEDBCurrentVersionString}! Please consider upgrading! You are currently on {piSqlVersion}";
@@ -247,7 +247,7 @@ namespace OSIsoft.PISystemDeploymentTests
                     string sqlpath32ODBC = Path.Combine(piHome32, @"SQL\SQL Client\ODBC\PISQLODBC.dll");
                     if (File.Exists(sqlpath64ODBC))
                     {
-                        Version piSqlVersion = new Version(FileVersionInfo.GetVersionInfo(sqlpath64ODBC).FileVersion);
+                        var piSqlVersion = new Version(FileVersionInfo.GetVersionInfo(sqlpath64ODBC).FileVersion);
                         if (piSqlVersion < _sqlClientODBCCurrentVersion)
                         {
                             skip = $@"Warning! You do not have the latest update: {_sqlClientODBCCurrentVersionString}! Please consider upgrading! You are currently on {piSqlVersion}";
@@ -256,7 +256,7 @@ namespace OSIsoft.PISystemDeploymentTests
 
                     if (File.Exists(sqlpath32ODBC))
                     {
-                        Version piSqlVersion = new Version(FileVersionInfo.GetVersionInfo(sqlpath32ODBC).FileVersion);
+                        var piSqlVersion = new Version(FileVersionInfo.GetVersionInfo(sqlpath32ODBC).FileVersion);
                         if (piSqlVersion < _sqlClientODBCCurrentVersion)
                         {
                             skip = $@"Warning! You do not have the latest update: {_sqlClientODBCCurrentVersionString}! Please consider upgrading! You are currently on {piSqlVersion}";
@@ -267,11 +267,11 @@ namespace OSIsoft.PISystemDeploymentTests
                 case TestCondition.PIWEBAPICURRENTPATCH:
                     var url = $"https://{Settings.PIWebAPI}:{443}/piwebapi/system";
 
-                    WebClient client = new WebClient { UseDefaultCredentials = true };
-                    AFElement elem = new AFElement();
+                    var client = new WebClient { UseDefaultCredentials = true };
+                    var elem = new AFElement();
                     bool disableWrites = false;
                     bool anonymousAuth = false;
-                    JObject data = new JObject();
+                    var data = new JObject();
 
                     try
                     {
@@ -288,7 +288,7 @@ namespace OSIsoft.PISystemDeploymentTests
                     }
 
                     var productVersion = (string)data["ProductVersion"];
-                    Version piWebAPIVersion = new Version(productVersion);
+                    var piWebAPIVersion = new Version(productVersion);
                     if (piWebAPIVersion < _webAPICurrentVersion)
                     {
                         skip = $@"Warning! You do not have the latest update: {_webAPICurrentVersionString}! Please consider upgrading! You are currently on {piWebAPIVersion}";
@@ -306,7 +306,7 @@ namespace OSIsoft.PISystemDeploymentTests
                             using (var command = new OleDbCommand("SELECT Version FROM System.Diagnostics.Version WHERE Item='Query Processor'", connection))
                             {
                                 string tempVersion = (string)command.ExecuteScalar();
-                                Version rtqpVersion = new Version(tempVersion);
+                                var rtqpVersion = new Version(tempVersion);
                                 if (rtqpVersion < _rtqpCurrentVersion)
                                 {
                                     skip = $@"Warning! You do not have the latest update: {_rtqpCurrentVersionString}! Please consider upgrading! You are currently on {rtqpVersion}";
@@ -334,7 +334,7 @@ namespace OSIsoft.PISystemDeploymentTests
                         visionProductVersion = visionClient.DownloadString(visionUrl);
                     }
 
-                    Version piVisionVersion = new Version();
+                    var piVisionVersion = new Version();
                     if (!string.IsNullOrWhiteSpace(visionProductVersion))
                     {
                         piVisionVersion = new Version(visionProductVersion);

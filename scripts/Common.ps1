@@ -12,8 +12,11 @@ $BuildPlatform = 'Any CPU'
 $BuildConfiguration = 'Release'
 $WindFarmxml = Join-Path $Root 'xml\OSIsoftTests-Wind.xml'
 $Source = Join-Path $Root 'source'
+$BuildPath = Join-Path $Root 'build'
+$BinPath = Join-Path $Root 'source\bin\release'
 $Logs = Join-Path $Root 'logs'
-$AppConfigFile = Join-Path $Source 'App.config'
+$AppConfigFile = Join-Path $Source 'Run.config'
+$RunConfigFile = Join-Path $BinPath 'Run.config'
 $TestResults = Join-Path $Root 'testResults'
 $Solution = Join-Path $Source 'OSIsoft.PISystemDeploymentTests.sln'
 $Binaries = Join-Path $Source 'bin' | Join-Path -ChildPath $BuildConfiguration
@@ -60,11 +63,12 @@ $VSBuildTools = Join-Path $TempDir $VSBuildToolsFileName
 $NuGetExeUri = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
 $DotNETDevPackUri = "https://download.visualstudio.microsoft.com/download/pr/7afca223-55d2-470a-8edc-6a1739ae3252/" +
 "c8c829444416e811be84c5765ede6148/ndp48-devpack-enu.exe"
-$VSBuildToolsUri = "https://download.visualstudio.microsoft.com/download/pr/a1603c02-8a66-4b83-b821-811e3610a7c4/" + 
-"aa2db8bb39e0cbd23e9940d8951e0bc3/vs_buildtools.exe"
+$VSBuildToolsUri = "https://download.visualstudio.microsoft.com/download/pr/e730a0bd-baf1-4f4c-9341-ca5a9caf0f9f/" + 
+"fc975c3678921adacfce4d912efe88d5846b354f39db6314cb69947cdc1d6d2b/vs_buildtools.exe"
 $xUnitConsole = Join-Path $Source 'packages\xunit.runner.console.2.4.1\tools\net471\xunit.console.exe'
+$xUnitConsolePath = Join-Path $Source 'packages\xunit.runner.console.2.4.1\tools\net471\'
 $VsWhereExe = "${Env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
-$BuildTools = "${Env:ProgramFiles(x86)}\Microsoft Visual Studio\2017\BuildTools"
+$BuildTools = "${Env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\BuildTools"
 
 
 function Add-VerboseLog() {
@@ -294,112 +298,6 @@ function Install-DotNETDevPack {
     }
 }
 
-
-function Install-BuildTools {
-    [CmdletBinding()]
-    param()
-    if (-not (Test-MSBuildVersionPresent)) {
-        if (-not (Test-Path $VSBuildTools)) {
-            New-FolderIfNotExists($TempDir)
-
-            Add-InfoLog -Message "Downloading $VSBuildToolsFileName."
-            Invoke-WebRequest $VSBuildToolsUri -OutFile $VSBuildTools
-        }
-
-        # Install Visual Studio Build Tools
-        $p = Start-Process $VSBuildTools -ArgumentList "-q" -PassThru -Wait
-        if ($p.ExitCode -ne 0 -or -not (Test-MSBuildVersionPresent)) {
-            Add-ErrorLog -Message ("Failed to install MSBuild. " + 
-                "Please run ""$VSBuildTools"" interactively and troubleshoot any issues.") -Fatal
-        }
-
-        Add-InfoLog -Message "Installed MSBuild successfully."
-    }
-}
-
-
-function Get-LatestVisualStudioRoot {
-    [CmdletBinding()]
-    param()
-    # Try to use vswhere to find the latest version of Visual Studio.
-    if (Test-Path $VsWhereExe) {
-        $installationPath = & $VsWhereExe -latest -prerelease -property installationPath
-        if ($installationPath) {
-            Add-VerboseLog -Message "Found Visual Studio installed at `"$installationPath`"."
-        }
-        
-        return $installationPath
-    }    
-}
-
-
-function Get-MSBuildRoot {
-    [CmdletBinding()]
-    param(    )
-    # Assume msbuild is installed with Visual Studio
-    $VisualStudioRoot = Get-LatestVisualStudioRoot
-    if ($VisualStudioRoot -and (Test-Path $VisualStudioRoot)) {
-        $MSBuildRoot = Join-Path $VisualStudioRoot 'MSBuild'
-    }
-
-    # Assume msbuild is installed with Build Tools
-    if (-not $MSBuildRoot -or -not (Test-Path $MSBuildRoot)) {
-        $MSBuildRoot = Join-Path $BuildTools 'MSBuild'
-    }
-
-    # If not found before
-    if (-not $MSBuildRoot -or -not (Test-Path $MSBuildRoot)) {
-        # Assume msbuild is installed at default location
-        $MSBuildRoot = Join-Path ${env:ProgramFiles(x86)} 'MSBuild'
-    }
-
-    $MSBuildRoot
-}
-
-
-function Get-MSBuildExe {
-    [CmdletBinding()]
-    param(
-        [int]$MSBuildVersion,
-        [switch]$TestOnly
-    )
-    if (-not $Script:MSBuildExe) {
-        # Get the highest msbuild version if version was not specified
-        if (-not $MSBuildVersion) {
-            Get-MSBuildExe -MSBuildVersion $DefaultMSBuildVersion -TestOnly:$TestOnly
-            return
-        }
-
-        $MSBuildRoot = Get-MSBuildRoot
-        $MSBuildExe = Join-Path $MSBuildRoot 'Current\bin\msbuild.exe'
-
-        if (-not (Test-Path $MSBuildExe)) {
-            $MSBuildExe = Join-Path $MSBuildRoot "${MSBuildVersion}.0\bin\msbuild.exe"
-        }
-
-        if (Test-Path $MSBuildExe) {
-            Add-VerboseLog -Message "Found MSBuild.exe at `"$MSBuildExe`"."
-            $Script:MSBuildExe = $MSBuildExe
-        } 
-        elseif (-not $TestOnly) {
-            Add-ErrorLog -Message ("Cannot find MSBuild.exe. Please download and install the Visual Studio Build Tools " +
-                "from $VSBuildToolsUri.") -Fatal
-        }
-    }
-}
-
-
-function Test-MSBuildVersionPresent {
-    [CmdletBinding()]
-    param(
-        [int]$MSBuildVersion = $DefaultMSBuildVersion
-    )
-    Get-MSBuildExe $MSBuildVersion -TestOnly
-
-    $Script:MSBuildExe -and (Test-Path $Script:MSBuildExe)
-}
-
-
 function Restore-SolutionPackages {
     [CmdletBinding()]
     param(
@@ -408,6 +306,7 @@ function Restore-SolutionPackages {
         [ValidateSet(15)]
         [int]$MSBuildVersion
     )
+
     $opts = , 'restore'
     if (-not $SolutionPath) {
         $opts += $Source
@@ -424,29 +323,14 @@ function Restore-SolutionPackages {
         $opts += '-verbosity', 'quiet'
     }
 
+    Add-InfoLog -Message "Restoring Packages"
+    Add-InfoLog -Message $Source
+
     & $NuGetExe $opts
     if (-not $?) {
         Add-ErrorLog -Message "Restore failed @""$Root"". Code: ${LASTEXITCODE}."
     }
 }
-
-
-function Build-TestSolution {
-    [CmdletBinding()]
-    param()
-    if (-not $Script:MSBuildExe) {
-        Get-MSBuildExe
-    }
-    
-    (& $Script:MSBuildExe /nologo $Solution /t:rebuild /p:Configuration=$BuildConfiguration`;Platform=$BuildPlatform) |
-    Select-String -Pattern "Build succeeded|Build failed" -Context 0, 100 | Out-String | 
-    ForEach-Object { $_.Trim().substring(2) } | Add-InfoLog
-    
-    if ($LASTEXITCODE) {
-        Add-ErrorLog -Message "Build failed @""$Solution""." -Fatal
-    }
-}
-
 
 function Build-ExcludedTestClassesString {
     [CmdletBinding()]
@@ -484,7 +368,7 @@ function Build-ExcludedTestClassesString {
     $noClassString.Trim()
 }
 
-function Build-Tests {
+function Setup-Tests {
     [CmdletBinding()]
     param ()
     # In order to build xUnit test solution, we need .NET Framework Developer Pack, NuGet.exe, and MSBuild
@@ -500,8 +384,19 @@ function Build-Tests {
     Add-InfoLog -Message "Restore the NuGet packages of the test solution."
     Restore-SolutionPackages
 
-    Add-InfoLog -Message "Build the test solution."
-    Build-TestSolution
+    Copy-Run-Config
+}
+
+function Copy-Run-config
+{
+    Add-InfoLog -Message "Copying Run.config to users temp folder."
+
+    $ConfigDestination = Join-Path $env:TEMP '\Run.config'
+
+    Add-InfoLog -Message $RunConfigFile
+    Add-InfoLog -Message $ConfigDestination
+
+    Copy-Item $RunConfigFile -Destination $ConfigDestination
 }
 
 function Start-PrelimTesting {
@@ -685,7 +580,10 @@ function Encrypt-CredentialData {
 function Read-AppSettings {
     [CmdletBinding()]
     param ()
-    ([xml](Get-Content $AppConfigFile)).Configuration.AppSettings.Add | 
+
+    Add-InfoLog -Message $RunConfigFile
+
+    ([xml](Get-Content $RunConfigFile)).Configuration.AppSettings.Add | 
     Select-Object -property @{
         Name = 'Setting'; Expression = { $_.key } 
     }, 
@@ -1087,159 +985,3 @@ function Remove-TargetDatabase {
         }
     }
 }
-# SIG # Begin signature block
-# MIIcuAYJKoZIhvcNAQcCoIIcqTCCHKUCAQExDzANBglghkgBZQMEAgEFADB5Bgor
-# BgEEAYI3AgEEoGswaTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63JNLG
-# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCAyJpao8Vr0ip64
-# Ot1vvNH5sPzFmNWVKWz/aGhFom5Gf6CCCo0wggUwMIIEGKADAgECAhAECRgbX9W7
-# ZnVTQ7VvlVAIMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYTAlVTMRUwEwYDVQQK
-# EwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAiBgNV
-# BAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0xMzEwMjIxMjAwMDBa
-# Fw0yODEwMjIxMjAwMDBaMHIxCzAJBgNVBAYTAlVTMRUwEwYDVQQKEwxEaWdpQ2Vy
-# dCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xMTAvBgNVBAMTKERpZ2lD
-# ZXJ0IFNIQTIgQXNzdXJlZCBJRCBDb2RlIFNpZ25pbmcgQ0EwggEiMA0GCSqGSIb3
-# DQEBAQUAA4IBDwAwggEKAoIBAQD407Mcfw4Rr2d3B9MLMUkZz9D7RZmxOttE9X/l
-# qJ3bMtdx6nadBS63j/qSQ8Cl+YnUNxnXtqrwnIal2CWsDnkoOn7p0WfTxvspJ8fT
-# eyOU5JEjlpB3gvmhhCNmElQzUHSxKCa7JGnCwlLyFGeKiUXULaGj6YgsIJWuHEqH
-# CN8M9eJNYBi+qsSyrnAxZjNxPqxwoqvOf+l8y5Kh5TsxHM/q8grkV7tKtel05iv+
-# bMt+dDk2DZDv5LVOpKnqagqrhPOsZ061xPeM0SAlI+sIZD5SlsHyDxL0xY4PwaLo
-# LFH3c7y9hbFig3NBggfkOItqcyDQD2RzPJ6fpjOp/RnfJZPRAgMBAAGjggHNMIIB
-# yTASBgNVHRMBAf8ECDAGAQH/AgEAMA4GA1UdDwEB/wQEAwIBhjATBgNVHSUEDDAK
-# BggrBgEFBQcDAzB5BggrBgEFBQcBAQRtMGswJAYIKwYBBQUHMAGGGGh0dHA6Ly9v
-# Y3NwLmRpZ2ljZXJ0LmNvbTBDBggrBgEFBQcwAoY3aHR0cDovL2NhY2VydHMuZGln
-# aWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZElEUm9vdENBLmNydDCBgQYDVR0fBHow
-# eDA6oDigNoY0aHR0cDovL2NybDQuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJl
-# ZElEUm9vdENBLmNybDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0Rp
-# Z2lDZXJ0QXNzdXJlZElEUm9vdENBLmNybDBPBgNVHSAESDBGMDgGCmCGSAGG/WwA
-# AgQwKjAoBggrBgEFBQcCARYcaHR0cHM6Ly93d3cuZGlnaWNlcnQuY29tL0NQUzAK
-# BghghkgBhv1sAzAdBgNVHQ4EFgQUWsS5eyoKo6XqcQPAYPkt9mV1DlgwHwYDVR0j
-# BBgwFoAUReuir/SSy4IxLVGLp6chnfNtyA8wDQYJKoZIhvcNAQELBQADggEBAD7s
-# DVoks/Mi0RXILHwlKXaoHV0cLToaxO8wYdd+C2D9wz0PxK+L/e8q3yBVN7Dh9tGS
-# dQ9RtG6ljlriXiSBThCk7j9xjmMOE0ut119EefM2FAaK95xGTlz/kLEbBw6RFfu6
-# r7VRwo0kriTGxycqoSkoGjpxKAI8LpGjwCUR4pwUR6F6aGivm6dcIFzZcbEMj7uo
-# +MUSaJ/PQMtARKUT8OZkDCUIQjKyNookAv4vcn4c10lFluhZHen6dGRrsutmQ9qz
-# sIzV6Q3d9gEgzpkxYz0IGhizgZtPxpMQBvwHgfqL2vmCSfdibqFT+hKUGIUukpHq
-# aGxEMrJmoecYpJpkUe8wggVVMIIEPaADAgECAhAGVvq6kseGimsYGJGsdvpbMA0G
-# CSqGSIb3DQEBCwUAMHIxCzAJBgNVBAYTAlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJ
-# bmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xMTAvBgNVBAMTKERpZ2lDZXJ0
-# IFNIQTIgQXNzdXJlZCBJRCBDb2RlIFNpZ25pbmcgQ0EwHhcNMjAwNjE2MDAwMDAw
-# WhcNMjIwNzIyMTIwMDAwWjCBkTELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRQw
-# EgYDVQQHEwtTYW4gTGVhbmRybzEVMBMGA1UEChMMT1NJc29mdCwgTExDMQwwCgYD
-# VQQLEwNEZXYxFTATBgNVBAMTDE9TSXNvZnQsIExMQzEjMCEGCSqGSIb3DQEJARYU
-# cGRlcmVnaWxAb3Npc29mdC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
-# AoIBAQDPSOGDHDmQTrdWSTB6jfvZ3+ngv2HwU/64ZUGKq+PbyQKcqeRI5MT2Fokj
-# K9yp6JoVnipZaBZdjLRj//FuqDR/pNy3VZo1xmufKICqrSS6x2AxKb9l/6mcO/MF
-# E2FgG0tND/xftCQlChB91GokCyiVNkwbLleB9uM6yn73ZZkiA0Chmjguipfal+hS
-# 27vds5xYGLtcnqWcKcZR5pr838vDT+8zzrxoWQ8se3H9LHYLyCiwk+84mA1M//BW
-# xaA7ERt1eJ3vLzYu3+ryH+GFiYEhJHu3FZjktEg5oZ25Vj7iwgTG+/CIMZsEDe5G
-# SFvePn3jpMmEaPbOPfx8FVwh8XItAgMBAAGjggHFMIIBwTAfBgNVHSMEGDAWgBRa
-# xLl7KgqjpepxA8Bg+S32ZXUOWDAdBgNVHQ4EFgQUmzSViihexjjLsHHW6j+r7Fxw
-# U/gwDgYDVR0PAQH/BAQDAgeAMBMGA1UdJQQMMAoGCCsGAQUFBwMDMHcGA1UdHwRw
-# MG4wNaAzoDGGL2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9zaGEyLWFzc3VyZWQt
-# Y3MtZzEuY3JsMDWgM6Axhi9odHRwOi8vY3JsNC5kaWdpY2VydC5jb20vc2hhMi1h
-# c3N1cmVkLWNzLWcxLmNybDBMBgNVHSAERTBDMDcGCWCGSAGG/WwDATAqMCgGCCsG
-# AQUFBwIBFhxodHRwczovL3d3dy5kaWdpY2VydC5jb20vQ1BTMAgGBmeBDAEEATCB
-# hAYIKwYBBQUHAQEEeDB2MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2Vy
-# dC5jb20wTgYIKwYBBQUHMAKGQmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9E
-# aWdpQ2VydFNIQTJBc3N1cmVkSURDb2RlU2lnbmluZ0NBLmNydDAMBgNVHRMBAf8E
-# AjAAMA0GCSqGSIb3DQEBCwUAA4IBAQAR/2LHTPvx/fBATBS0jBBhPEhlrpNgkWZ9
-# NCo0wJC5H2V2CpokuZxA4HoK0YCsz2x68BpCnBOX3pdSWC+kQOvLyJayTQew+c/R
-# sebGEVp9NNtsnpcFhjM3e7hqsQAm6rCIJWk0Q1sSyYnhnqHA/iS1DxNqZ/qZHx1k
-# ise1+9bOefqB1YN+vtmPBlLkboKCklbrJmHSEn4cZNBHjq1yVYOPacuws+8kAEMh
-# lDjG2NkfyqF72Jo90SFK7xgjE6euLbvmjGYRSF9h4V+aR6MaEcDkUe2aoCgCmnDX
-# Q+9sIKX0AojqBVLFUNQpzelOdjGWNzdcMMSu8p0pNw4xeAbuCEHfMYIRgTCCEX0C
-# AQEwgYYwcjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcG
-# A1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTExMC8GA1UEAxMoRGlnaUNlcnQgU0hBMiBB
-# c3N1cmVkIElEIENvZGUgU2lnbmluZyBDQQIQBlb6upLHhoprGBiRrHb6WzANBglg
-# hkgBZQMEAgEFAKCB/zAZBgkqhkiG9w0BCQMxDAYKKwYBBAGCNwIBBDAcBgorBgEE
-# AYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAvBgkqhkiG9w0BCQQxIgQgaUVtstoAJA4y
-# Po7mdFRAue/H+DKG7O5u56WApvYxRWowgZIGCisGAQQBgjcCAQwxgYMwgYCgXIBa
-# AFAASQAgAFMAeQBzAHQAZQBtACAARABlAHAAbABvAHkAbQBlAG4AdAAgAFQAZQBz
-# AHQAcwAgAFAAbwB3AGUAcgBTAGgAZQBsAGwAIABTAGMAcgBpAHAAdABzoSCAHmh0
-# dHA6Ly90ZWNoc3VwcG9ydC5vc2lzb2Z0LmNvbTANBgkqhkiG9w0BAQEFAASCAQAv
-# 7cUyZfrFNiTyIFb5l0GLM0DSdoAioVfhvzl21UQwtaCiU0hCpQ9DuoWV5bFcIS9n
-# W5QeHJx9hosoUXN/IG6qWB2D214ZlglFUukKIz8kj7AERX5WiBzT4Be69WUuyPSU
-# poi4St5eLdYxRHZvhc0pavxkGZB6qfOT0ZGNlCcHFc94VtwdQMiuCeg5mcO7bBzv
-# 6iiQsEk2MP5qS/fb4sfYPbd0dKqtbjvS4Dj3rYmgh5Yuc4JirdKP/hMZA27xwL/C
-# rtMXGiLwhezd9SONO7lkjc22UViJRNcWWwZ33j931+awl5UkOTht6fqigtLySveo
-# sSg/r23sOLqfb6CMChAQoYIOyTCCDsUGCisGAQQBgjcDAwExgg61MIIOsQYJKoZI
-# hvcNAQcCoIIOojCCDp4CAQMxDzANBglghkgBZQMEAgEFADB4BgsqhkiG9w0BCRAB
-# BKBpBGcwZQIBAQYJYIZIAYb9bAcBMDEwDQYJYIZIAWUDBAIBBQAEINHKIKSTp47D
-# ReauyhuHCZduU7kFCMwh2L1/tVs1qmsqAhEA32gesjGmsVTW0lnSHsVICRgPMjAy
-# MDExMjExNDAxNTlaoIILuzCCBoIwggVqoAMCAQICEATNP4VornbGG7D+cWDMp20w
-# DQYJKoZIhvcNAQELBQAwcjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0
-# IEluYzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTExMC8GA1UEAxMoRGlnaUNl
-# cnQgU0hBMiBBc3N1cmVkIElEIFRpbWVzdGFtcGluZyBDQTAeFw0xOTEwMDEwMDAw
-# MDBaFw0zMDEwMTcwMDAwMDBaMEwxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdp
-# Q2VydCwgSW5jLjEkMCIGA1UEAxMbVElNRVNUQU1QLVNIQTI1Ni0yMDE5LTEwLTE1
-# MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6WQ1nPqpmGVkG+QX3Lgp
-# NsxnCViFTTDgyf/lOzwRKFCvBzHiXQkYwvaJjGkIBCPgdy2dFeW46KFqjv/UrtJ6
-# Fu/4QbUdOXXBzy+nrEV+lG2sAwGZPGI+fnr9RZcxtPq32UI+p1Wb31pPWAKoMmki
-# E76Lgi3GmKtrm7TJ8mURDHQNsvAIlnTE6LJIoqEUpfj64YlwRDuN7/uk9MO5vRQs
-# 6wwoJyWAqxBLFhJgC2kijE7NxtWyZVkh4HwsEo1wDo+KyuDT17M5d1DQQiwues6c
-# Z3o4d1RA/0+VBCDU68jOhxQI/h2A3dDnK3jqvx9wxu5CFlM2RZtTGUlinXoCm5UU
-# owIDAQABo4IDODCCAzQwDgYDVR0PAQH/BAQDAgeAMAwGA1UdEwEB/wQCMAAwFgYD
-# VR0lAQH/BAwwCgYIKwYBBQUHAwgwggG/BgNVHSAEggG2MIIBsjCCAaEGCWCGSAGG
-# /WwHATCCAZIwKAYIKwYBBQUHAgEWHGh0dHBzOi8vd3d3LmRpZ2ljZXJ0LmNvbS9D
-# UFMwggFkBggrBgEFBQcCAjCCAVYeggFSAEEAbgB5ACAAdQBzAGUAIABvAGYAIAB0
-# AGgAaQBzACAAQwBlAHIAdABpAGYAaQBjAGEAdABlACAAYwBvAG4AcwB0AGkAdAB1
-# AHQAZQBzACAAYQBjAGMAZQBwAHQAYQBuAGMAZQAgAG8AZgAgAHQAaABlACAARABp
-# AGcAaQBDAGUAcgB0ACAAQwBQAC8AQwBQAFMAIABhAG4AZAAgAHQAaABlACAAUgBl
-# AGwAeQBpAG4AZwAgAFAAYQByAHQAeQAgAEEAZwByAGUAZQBtAGUAbgB0ACAAdwBo
-# AGkAYwBoACAAbABpAG0AaQB0ACAAbABpAGEAYgBpAGwAaQB0AHkAIABhAG4AZAAg
-# AGEAcgBlACAAaQBuAGMAbwByAHAAbwByAGEAdABlAGQAIABoAGUAcgBlAGkAbgAg
-# AGIAeQAgAHIAZQBmAGUAcgBlAG4AYwBlAC4wCwYJYIZIAYb9bAMVMB8GA1UdIwQY
-# MBaAFPS24SAd/imu0uRhpbKiJbLIFzVuMB0GA1UdDgQWBBRWUw/BxgenTdfYbldy
-# gFBM5OyewTBxBgNVHR8EajBoMDKgMKAuhixodHRwOi8vY3JsMy5kaWdpY2VydC5j
-# b20vc2hhMi1hc3N1cmVkLXRzLmNybDAyoDCgLoYsaHR0cDovL2NybDQuZGlnaWNl
-# cnQuY29tL3NoYTItYXNzdXJlZC10cy5jcmwwgYUGCCsGAQUFBwEBBHkwdzAkBggr
-# BgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tME8GCCsGAQUFBzAChkNo
-# dHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRTSEEyQXNzdXJlZElE
-# VGltZXN0YW1waW5nQ0EuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQAug6FEBUoE47ky
-# UvrZgfAau/gJjSO5PdiSoeZGHEovbno8Y243F6Mav1gjskOclINOOQmwLOjH4eLM
-# 7ct5a87eIwFH7ZVUgeCAexKxrwKGqTpzav74n8GN0SGM5CmCw4oLYAACnR9HxJ+0
-# CmhTf1oQpvgi5vhTkjFf2IKDLW0TQq6DwRBOpCT0R5zeDyJyd1x/T+k5mCtXkkTX
-# 726T2UPHBDNjUTdWnkcEEcOjWFQh2OKOVtdJP1f8Cp8jXnv0lI3dnRq733oqptJF
-# plUMj/ZMivKWz4lG3DGykZCjXzMwYFX1/GswrKHt5EdOM55naii1TcLtW5eC+Mup
-# CGxTCbT3MIIFMTCCBBmgAwIBAgIQCqEl1tYyG35B5AXaNpfCFTANBgkqhkiG9w0B
-# AQsFADBlMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYD
-# VQQLExB3d3cuZGlnaWNlcnQuY29tMSQwIgYDVQQDExtEaWdpQ2VydCBBc3N1cmVk
-# IElEIFJvb3QgQ0EwHhcNMTYwMTA3MTIwMDAwWhcNMzEwMTA3MTIwMDAwWjByMQsw
-# CQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3d3cu
-# ZGlnaWNlcnQuY29tMTEwLwYDVQQDEyhEaWdpQ2VydCBTSEEyIEFzc3VyZWQgSUQg
-# VGltZXN0YW1waW5nIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
-# vdAy7kvNj3/dqbqCmcU5VChXtiNKxA4HRTNREH3Q+X1NaH7ntqD0jbOI5Je/YyGQ
-# mL8TvFfTw+F+CNZqFAA49y4eO+7MpvYyWf5fZT/gm+vjRkcGGlV+Cyd+wKL1oODe
-# Ij8O/36V+/OjuiI+GKwR5PCZA207hXwJ0+5dyJoLVOOoCXFr4M8iEA91z3FyTgqt
-# 30A6XLdR4aF5FMZNJCMwXbzsPGBqrC8HzP3w6kfZiFBe/WZuVmEnKYmEUeaC50ZQ
-# /ZQqLKfkdT66mA+Ef58xFNat1fJky3seBdCEGXIX8RcG7z3N1k3vBkL9olMqT4Ud
-# xB08r8/arBD13ays6Vb/kwIDAQABo4IBzjCCAcowHQYDVR0OBBYEFPS24SAd/imu
-# 0uRhpbKiJbLIFzVuMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6enIZ3zbcgPMBIG
-# A1UdEwEB/wQIMAYBAf8CAQAwDgYDVR0PAQH/BAQDAgGGMBMGA1UdJQQMMAoGCCsG
-# AQUFBwMIMHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Au
-# ZGlnaWNlcnQuY29tMEMGCCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2Vy
-# dC5jb20vRGlnaUNlcnRBc3N1cmVkSURSb290Q0EuY3J0MIGBBgNVHR8EejB4MDqg
-# OKA2hjRodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-# b290Q0EuY3JsMDqgOKA2hjRodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vRGlnaUNl
-# cnRBc3N1cmVkSURSb290Q0EuY3JsMFAGA1UdIARJMEcwOAYKYIZIAYb9bAACBDAq
-# MCgGCCsGAQUFBwIBFhxodHRwczovL3d3dy5kaWdpY2VydC5jb20vQ1BTMAsGCWCG
-# SAGG/WwHATANBgkqhkiG9w0BAQsFAAOCAQEAcZUS6VGHVmnN793afKpjerN4zwY3
-# QITvS4S/ys8DAv3Fp8MOIEIsr3fzKx8MIVoqtwU0HWqumfgnoma/Capg33akOpMP
-# +LLR2HwZYuhegiUexLoceywh4tZbLBQ1QwRostt1AuByx5jWPGTlH0gQGF+JOGFN
-# YkYkh2OMkVIsrymJ5Xgf1gsUpYDXEkdws3XVk4WTfraSZ/tTYYmo9WuWwPRYaQ18
-# yAGxuSh1t5ljhSKMYcp5lH5Z/IwP42+1ASa2bKXuh1Eh5Fhgm7oMLSttosR+u8Ql
-# K0cCCHxJrhO24XxCQijGGFbPQTS2Zl22dHv1VjMiLyI2skuiSpXY9aaOUjGCAk0w
-# ggJJAgEBMIGGMHIxCzAJBgNVBAYTAlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMx
-# GTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xMTAvBgNVBAMTKERpZ2lDZXJ0IFNI
-# QTIgQXNzdXJlZCBJRCBUaW1lc3RhbXBpbmcgQ0ECEATNP4VornbGG7D+cWDMp20w
-# DQYJYIZIAWUDBAIBBQCggZgwGgYJKoZIhvcNAQkDMQ0GCyqGSIb3DQEJEAEEMBwG
-# CSqGSIb3DQEJBTEPFw0yMDExMjExNDAxNTlaMCsGCyqGSIb3DQEJEAIMMRwwGjAY
-# MBYEFAMlvVBe2pYwLcIvT6AeTCi+KDTFMC8GCSqGSIb3DQEJBDEiBCC2qOc+TRZE
-# 8MJYH/iQ8ANvO54jTBsdTAvRmtFgO+kfMjANBgkqhkiG9w0BAQEFAASCAQAgp4Dz
-# /H4bOg7zKgSEzbyXfEVBIjVze/YTR6EyWaTQCwtHCBrdMI4jNzgwFticNA4NO/c0
-# /K6OkrOCbcfdcAyWoiBT8WqseJeEYSBiql8XtL4i7ubG224hgAjUXVwDZC/s2h6m
-# cuQ6qC1ZASjJaQ3Ixusdz2+jV9rBmi84UqKFAc1NIfXS0+UZUl7yVuMv9wWwfUzs
-# JisP/2+nVWp2jXNglSWx7rQ8pGw0zE4k1xbN4fbH1FSXxz8t4sMwnwzZCWuox76m
-# hkBchTKeqcXA2dN4Kcz/NV0dMnwaJLXbExL/5y4KSvjn03laobL7m4JMdmhDbhfe
-# 2toW+qLSpbMmbKHd
-# SIG # End signature block

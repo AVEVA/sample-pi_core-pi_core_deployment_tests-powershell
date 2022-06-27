@@ -137,7 +137,7 @@ namespace OSIsoft.PISystemDeploymentTests
             Client.Dispose();
             ServicePointManager.ServerCertificateValidationCallback = null;
         }
-
+#pragma warning disable SA1600 // Elements should be documented
         internal static void GetWebApiClient(ref WebClient client, ref AFElement configElement, ref bool disableWrites, ref bool anonymousAuthentication)
         {
             PISystem pisys = AFFixture.GetPISystemFromConfig();
@@ -184,5 +184,6 @@ namespace OSIsoft.PISystemDeploymentTests
                 }
             }
         }
+#pragma warning restore SA1600 // Elements should be documented
     }
 }

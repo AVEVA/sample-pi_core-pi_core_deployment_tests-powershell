@@ -16,15 +16,17 @@ namespace OSIsoft.PISystemDeploymentTests
     [Collection("AF collection")]
     public partial class NotificationTests : IClassFixture<AFFixture>, IClassFixture<NotificationsFixture>
     {
+#pragma warning disable SA1600 // Elements should be documented
         internal const string KeySetting = "PINotificationsService";
         internal const TypeCode KeySettingTypeCode = TypeCode.String;
+#pragma warning restore SA1600 // Elements should be documented
 
         /// <summary>
         /// Constructor for NotificationsConfigurationTests Class.
         /// </summary>
         /// <param name="output">The output logger used for writing messages.</param>
         /// <param name="afFixture">Fixture to manage AF connection and specific helper functions.</param>
-        /// <param name="notificationFixture">Fixture to manage notifications objects.</param>
+        /// <param name="notificationsFixture">Fixture to manage notifications objects.</param>
         public NotificationTests(ITestOutputHelper output, AFFixture afFixture, NotificationsFixture notificationsFixture)
         {
             Contract.Requires(output != null);

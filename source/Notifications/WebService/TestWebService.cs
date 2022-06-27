@@ -8,6 +8,7 @@ using Xunit.Sdk;
 namespace OSIsoft.PISystemDeploymentTests
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single)]
+#pragma warning disable SA1600 // Elements should be documented
     internal class TestWebService : IWebService
     {
         private readonly ConcurrentQueue<Message> _queue;
@@ -67,4 +68,5 @@ namespace OSIsoft.PISystemDeploymentTests
             public string Content { get; set; }
         }
     }
+#pragma warning restore SA1600 // Elements should be documented
 }
