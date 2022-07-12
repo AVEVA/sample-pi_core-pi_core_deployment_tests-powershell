@@ -122,8 +122,8 @@ namespace OSIsoft.PISystemDeploymentTests
         private static Version _webAPICurrentVersion = new Version("1.16.0.254");
         private static string _webAPICurrentVersionString = "PI Web API 2021 SP2";
 
-        private static Version _visionCurrentVersion = new Version("3.5.1.0");
-        private static string _visionCurrentVersionString = "PI Vision 2020 Patch 1";
+        private static Version _visionCurrentVersion = new Version("3.7.0.0");
+        private static string _visionCurrentVersionString = "PI Vision 2022";
 
         private static Version _manualLoggerWebCurrentVersion = new Version("3.4.2.535");
         private static string _manualLoggerWebCurrentVersionString = "PI Manual Logger Web R2 Patch 2";

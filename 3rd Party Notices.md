@@ -4,7 +4,7 @@ Several of the components referenced by this distribution are attributable to ot
 
 Copyright 2022
 
-[PI System Deployment Tests : PISystemDeploymentTestsV1.0.5_Additional]
+[PI System Deployment Tests : PISystemDeploymentTestsV1.0.6_Notices]
 
 Distribution: EXTERNAL
 
@@ -12,15 +12,12 @@ Components:
 
 JamesNK/Newtonsoft.Json 13.0.1 : MIT License
 Microsoft.CodeAnalysis.NetAnalyzers 5.0.3 : Apache License 2.0
-Microsoft.Extensions.DependencyModel : MIT License
 StyleCop.Analyzers 1.1.118 : Apache License 2.0
 	Copyright 2015 Tunnel Vision Laboratories, LLC
-xunit-cli 0.1.6 : Apache License 2.0
 xunit.analyzers 0.10.0 : Apache License 2.0
 	Copyright (c) .NET Foundation and Contributors
 	All Rights Reserved
 xUnit.net 2.4.1 : (MIT License AND Apache License 2.0)
-xUnit.net [Abstractions] 2.0.0 : Apache License 2.0
 xUnit.net [Abstractions] 2.0.3 : Apache License 2.0
 	Copyright (c) .NET Foundation and Contributors
 	    All Rights Reserved
@@ -29,13 +26,12 @@ xUnit.net [Core Library] 2.4.1 : (MIT License AND Apache License 2.0)
 xUnit.net [Extensibility: Core] 2.4.1 : (MIT License AND Apache License 2.0)
 xUnit.net [Extensibility: Execution] 2.4.1 : (MIT License AND Apache License 2.0)
 xUnit.net [Runner: Console] 2.4.1 : (MIT License AND Apache License 2.0)
-xUnit.net [Visual Studio/TFS Build Runner] 2.4.1 : (MIT License AND Apache License 2.0)
 xUnit.net [Visual Studio/TFS Build Runner] 2.4.3 : MIT License
 
 Licenses: 
 
 Apache License 2.0
-(Microsoft.CodeAnalysis.NetAnalyzers 5.0.3, StyleCop.Analyzers 1.1.118, xunit-cli 0.1.6, xunit.analyzers 0.10.0, xUnit.net 2.4.1, xUnit.net [Abstractions] 2.0.0, xUnit.net [Abstractions] 2.0.3, xUnit.net [Assertion Library] 2.4.1, xUnit.net [Core Library] 2.4.1, xUnit.net [Extensibility: Core] 2.4.1, xUnit.net [Extensibility: Execution] 2.4.1, xUnit.net [Runner: Console] 2.4.1, xUnit.net [Visual Studio/TFS Build Runner] 2.4.1)
+(Microsoft.CodeAnalysis.NetAnalyzers 5.0.3, StyleCop.Analyzers 1.1.118, xunit.analyzers 0.10.0, xUnit.net 2.4.1, xUnit.net [Abstractions] 2.0.3, xUnit.net [Assertion Library] 2.4.1, xUnit.net [Core Library] 2.4.1, xUnit.net [Extensibility: Core] 2.4.1, xUnit.net [Extensibility: Execution] 2.4.1, xUnit.net [Runner: Console] 2.4.1)
 
 Apache License
 Version 2.0, January 2004
@@ -269,29 +265,26 @@ The file src/common/Annotations.cs is covered by the following license
 ---
 
 MIT License
-(Microsoft.Extensions.DependencyModel, xUnit.net [Visual Studio/TFS Build Runner] 2.4.1)
+(JamesNK/Newtonsoft.Json 13.0.1)
 
-The MIT License
-===============
+Copyright (c) 2007 James Newton-King
 
-Copyright (c) 2015 .NET Foundation
+Permission is hereby granted, free of charge, to any person obtaining a copy of this
+software and associated documentation files (the "Software"), to deal in the Software
+without restriction, including without limitation the rights to use, copy, modify,
+merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to the following
+conditions:
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in the
-Software without restriction, including without limitation the rights to use,
-copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
-Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies
+or substantial portions of the Software.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
-AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
 ---
 
@@ -325,32 +318,6 @@ Permission is hereby granted, free of charge, to any person obtaining a copy
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE
-
----
-
-MIT License
-(JamesNK/Newtonsoft.Json 13.0.1)
-
-The MIT License (MIT)
-
-Copyright (c) 2007 James Newton-King
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
 ---
 
