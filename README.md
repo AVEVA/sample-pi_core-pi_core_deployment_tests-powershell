@@ -1,6 +1,6 @@
 
 
-​																																	<sup>  **Version:** 1.0.5</sup>
+​																																	<sup>  **Version:** 1.0.6</sup>
 
 ![OSIlogo.png](./images/OSIlogo.png)																								
 
