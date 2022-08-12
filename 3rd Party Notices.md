@@ -4,7 +4,7 @@ Several of the components referenced by this distribution are attributable to ot
 
 Copyright 2022
 
-[PI System Deployment Tests : PISystemDeploymentTestsV1.0.6_Notices]
+[PI System Deployment Tests : PISystemDeploymentTestsV1.0.7_Notices]
 
 Distribution: EXTERNAL
 

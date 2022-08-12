@@ -261,3 +261,14 @@ __pycache__/
 *.pyc
 /.nuget
 /temp
+/source/Plugins/OSIsoft.AF.Notification.DeliveryChannel.Email.dll
+/source/Plugins/OSIsoft.AF.Notification.DeliveryChannel.WebService.dll
+/source/PSEPlugins/AFPluginAdditionsNotifications.dll
+/source/PSEPlugins/AFPlugInContacts.dll
+/source/PSEPlugins/NLog.dll
+/source/PSEPlugins/OSIsoft.PINotifications.Client.dll
+/source/PSEPlugins/OSIsoft.PINotifications.Formatting.dll
+/source/PSEPlugins/OSIsoft.PINotifications.Formatting.New.dll
+/source/PSEPlugins/OSIsoft.PINotifications.Formatting.UI.dll
+/source/PSEPlugins/OSIsoft.PINotifications.UI.dll
+/source/PSEPlugins/OSIsoft.PINotifications.WCF.dll

@@ -20,17 +20,6 @@
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
   </PropertyGroup>
-  <ItemGroup>
-    <AFSDKPackagePath Include="..\Packages\OSIsoft.AFSDK\**\net462\OSIsoft.AFSDK.dll">
-      <Visible>False</Visible>
-    </AFSDKPackagePath>
-    <NotificationsPackagePathClient Include="..\Packages\notifications-dlls-for-af\**\content\PSEPlugins\OSIsoft.PINotifications.Client.dll">
-      <Visible>False</Visible>
-    </NotificationsPackagePathClient>
-    <NotificationsPackagePathWCF Include="..\Packages\notifications-dlls-for-af\**\content\PSEPlugins\OSIsoft.PINotifications.WCF.dll">
-      <Visible>False</Visible>
-    </NotificationsPackagePathWCF>
-  </ItemGroup>
   <PropertyGroup Condition="$(DefineConstants.Contains('BuildMach'))">
     <AFSDKHintPath Condition="'$(AFSDKHintPath)'==''">@(AFSDKPackagePath->'%(FullPath)')</AFSDKHintPath>
     <NotificationsClientHintPath Condition="'$(NotificationsClientHintPath)'==''">@(NotificationsPackagePathClient->'%(FullPath)')</NotificationsClientHintPath>
@@ -91,12 +80,13 @@
     <Reference Include="OSIsoft.AFSDK, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6238be57836698e6, processorArchitecture=MSIL">
       <HintPath>$(AFSDKHintPath)</HintPath>
     </Reference>
-    <Reference Include="OSIsoft.PINotifications.Client">
-      <HintPath>..\packages\notifications-dlls-for-af\2.10.9.572\content\PSEPlugins\OSIsoft.PINotifications.Client.dll</HintPath>
+    <Reference Include="OSIsoft.PINotifications.Client, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c2fd352b8728a375, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\notifications-dlls-for-af.2.10.9.649\content\PSEPlugins\OSIsoft.PINotifications.Client.dll</HintPath>
     </Reference>
     <Reference Include="OSIsoft.PINotifications.WCF, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c2fd352b8728a375, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\notifications-dlls-for-af\2.10.9.572\content\PSEPlugins\OSIsoft.PINotifications.WCF.dll</HintPath>
+      <HintPath>packages\notifications-dlls-for-af.2.10.9.649\content\PSEPlugins\OSIsoft.PINotifications.WCF.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

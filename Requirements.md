@@ -53,7 +53,9 @@ If you want the test associated with an optional PI System component to run, ind
 
 ### Set up the test client machine
 
-Before running PI System Deployment Tests, you need to set up the test client machine.  Install PI AF Client 2018 SP3 or greater on the client machine where tests will be executed. Also, make sure the PowerShell tools for PI System 2018 SP3 are installed. 
+Before running PI System Deployment Tests, you need to set up the test client machine.  Install PI AF Client 2018 SP3 or greater on the client machine where tests will be executed. You also need to install the PI System 2018 SP3 on the test client machine.  Installation of the PI System 2018 SP3 on the test client machine provides notification components and PowerShell Tools for the PI System which are required to build the PI System Deployment Tests.
+
+**Important note:** PI Notifications Service, which is a feature selection for the PI System 2018 SP3 installer, is required to build the PI System Deployment Tests.  The PI Notifications Service provides notification components and PowerShell Tools for the PI System.
 
 The test client machine must have Internet access and access to the PI System components.
 
