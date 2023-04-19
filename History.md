@@ -10,3 +10,4 @@
 | 1.0.5   | Update for AVEVA PI Server 2018 SP3 Patch 4 <br>Update for PI Vision 2021 Patch 1 (3.6.1.0) release.<br> Updated for PI Web API 2021 SP2<br> Removed reference to PI Vision from 'SkipCertificateValidation' App.Config attribute in Requirements.md and improved PI Manual Logger code related to 'SkipCertificateValidation'.<br><br> Upgraded solution to use Microsoft.CodeAnalysis assemblies (version 5.0.3). <br> Code adjustments made to conform to new styling rules. <br> Added documentation and security notes. <br><br> Upgraded Newtonsoft.Json to version 13.0.1 <br> Upgraded xunit.runner to version 2.4.3 <br> Updated run.ps1 Powershell script to use MS Build 2019 <br><br> Added nuget.config file at root of 'source' directory  |
 | 1.0.6   | Update for PI Vision 2022 (3.7.0.0) |
 | 1.0.7   | Fix PI Notifications dependency packages and make Packages are available publicly or dlls are included in the repository. |
+| 1.0.8   | Update feedback link. |

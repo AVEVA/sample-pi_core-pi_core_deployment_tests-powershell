@@ -1,6 +1,6 @@
 
 
-​																																	<sup>  **Version:** 1.0.7</sup>
+​																																	<sup>  **Version:** 1.0.8</sup>
 
 ![OSIlogo.png](./images/OSIlogo.png)																								
 
@@ -70,7 +70,7 @@ At the end of the script, you have the option of removing the AF database and PI
 
 ### Feedback
 
-To request a new sample or if there is a feature or capability you would like demonstrated or there is an existing sample you would like in your favorite language, please give us feedback at the [OSIsoft GitHub Feedback Channel](https://feedback.osisoft.com/forums/922279-osisoft-github). 
+To request a new sample, if there is a feature or capability you would like demonstrated, or if there is an existing sample you would like in your favorite language, please give us feedback at [https://feedback.aveva.com](https://feedback.aveva.com) under the Developer Samples category. [Feedback](https://datahub.feedback.aveva.com/ideas/search?category=7135134109509567625&query=sample).
 
 ### Support
 
